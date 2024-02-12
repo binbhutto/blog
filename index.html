@@ -14,7 +14,7 @@ layout: default
       style="display:inline-block; margin-left: auto; margin-right: auto; vertical-align:top; padding-top:15px; text-align:center;width:15%;">
 
       {% if post.thumbnail %}
-      <img src="{{ post.thumbnail }}" style="width:80%; height:80%;" align="center" />
+      <img src="{{ post.thumbnail | prepend: site.baseurl}}" style="width:80%; height:80%;" align="center" />
       {% else %}
       <img src="/assets/shell.png" style="width:80%; height:80%" align="center" /> <!-- border: 0px solid #ccc; -->
       {% endif %}

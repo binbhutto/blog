@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Studying Growth with Neural Cellular Automata</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="A blog by Monowar Bhuyan">
+    <link rel="canonical" href="/blog/2022/05/24/studying-growth/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Cyber Analytics and Learning posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/assets/main.css">
+
+    <!-- Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72311215-6', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
+    <!-- Allow RSS subscribers, as described in https://dzhavat.github.io/2020/01/19/adding-an-rss-feed-to-github-pages.html -->
+    <link rel="alternate" type="application/atom+xml" title="Sam Greydanus’ blog" href="/feed.xml">
+
+</head>
+
+
+    <body>
+
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:left; margin-top:11px; margin-right:10px;">
+    <img src="/assets/oak.png" width="50px">
+    </div>
+
+    <div style="float:left; margin-top:4px; margin-right:10px;">
+      <a class="site-title" style="padding-top:0px; padding-bottom:0px;" href="/blog/ ">Cyber Analytics and Learning</a>
+      <!--<p style="font-size:14px;">‎‎ㅤㅤㅤ&zwnj;</p> This is very hacky but I couldn't find a better way -->
+      <br>
+      <p style="padding-bottom:6px; font-size:15px;font-weight: 300;">A blog by Monowar Bhuyan</p>
+    </div>
+
+<!--     <a class="site-title" style="padding-top:8px; font-size:28px" href="/blog/ ">Cyber Analytics and Learning</a> -->
+    
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger" style="margin-bottom:0px; padding-top:10px; font-size:13px;font-weight: 300;">
+<!--         <a class="page-link" href="/blog/ ">Home</a> -->
+<!--         
+          <a class="page-link" href="/blog/assets/2017-12-23-neurips17/">A Review of NeurIPS</a>
+        
+          
+        
+          
+        
+          
+        
+          
+         -->
+        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="/index.html">Home</a>
+<!--         <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="../../../../about.html">About me (old)</a> -->
+        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" target="_blank" href="https://people.cs.umu.se/monowar">Profile</a>
+      </div>
+    </nav>
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>Studying Growth with Neural Cellular Automata</h1>
+    <p class="meta">May 24, 2022 • Sam Greydanus</p>
+  </header>
+
+  <article class="post-content">
+  <!-- "We simulate the process of cell growth called morphogenesis. Then we find growth rules that generate a range of flowers and use them to grow a garden." -->
+
+<div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
+  <div style="width:32%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;padding-right:10px;">
+    <video id="video1" style="width:100%;min-width:250px;" poster="/assets/studying-growth/rose.jpg">
+      <source src="/assets/studying-growth/rose.mp4" type="video/mp4" />
+    </video>
+    <button class="playbutton" id="video1_button" onclick="playPauseVideo1()">Play</button>
+  </div>
+  <div style="width:32%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;padding-right:10px;">
+    <video id="video2" style="width:100%;min-width:250px;" poster="/assets/studying-growth/marigold.jpg">
+      <source src="/assets/studying-growth/marigold.mp4" type="video/mp4" />
+    </video>
+    <button class="playbutton" id="video2_button" onclick="playPauseVideo2()">Play</button>
+  </div>
+   <div style="width:32%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;">
+    <video id="video3" style="width:100%;min-width:250px;" poster="/assets/studying-growth/crocus.jpg">
+      <source src="/assets/studying-growth/crocus.mp4" type="video/mp4" />
+    </video>
+    <button class="playbutton" id="video3_button" onclick="playPauseVideo3()">Play</button>
+  </div>
+  <div style="text-align:left; display:block; margin-left: auto; margin-right: auto; width:95%"><b>Growing flowers.</b> The pixels in the images above represent cells. By exchanging signals with their neighbors, these cells coordinate their behavior and assemble themselves in the shapes of the three flowers shown.</div>
+</div>
+
+<script> 
+function playPauseVideo1() { 
+  var video = document.getElementById("video1"); 
+  var button = document.getElementById("video1_button");
+  if (video.paused) {
+    video.play();
+    button.textContent = "Pause";}
+  else {
+    video.pause(); 
+  button.textContent = "Play";}
+} 
+
+function playPauseVideo2() { 
+  var video = document.getElementById("video2"); 
+  var button = document.getElementById("video2_button");
+  if (video.paused) {
+    video.play();
+  button.textContent = "Pause";}
+  else {
+    video.pause(); 
+  button.textContent = "Play";}
+} 
+
+function playPauseVideo3() { 
+  var video = document.getElementById("video3"); 
+  var button = document.getElementById("video3_button");
+  if (video.paused) {
+    video.play();
+  button.textContent = "Pause";}
+  else {
+    video.pause(); 
+  button.textContent = "Play";}
+} 
+</script>
+
+<div style="display: block; margin-left: auto; margin-right: auto; width:100%; text-align:center;">
+  <a href="https://colab.research.google.com/drive/1TgGN5qjjH6MrMrTcStEkdHO-giEJ4bZr" id="linkbutton" target="_blank"><span class="colab-span">Run</span> in browser</a>
+  <a href="https://github.com/greydanus/studying_growth" id="linkbutton" target="_blank">Get the code</a>
+</div>
+
+<!-- ## A Productive Question -->
+
+<p>How does a single fertilized egg grow into a population of seventy trillion cells: a population that can walk, talk, and write sonnets? This is one of the great unanswered questions of biology. We may never finish answering it, but it is a productive question nonetheless. In asking it, scientists have discovered the structure of DNA, sequenced the human genome, and made essential contributions to modern medicine.</p>
+
+<p>In this post, we will explore this question with a new tool called Neural Cellular Automata (NCA).</p>
+
+<!-- **Neural Cellular Automata.** A few years ago, scientists showed that it is possible to use neural networks to represent the rules for how simulated cells interact with one another. This allowed them to teach simulated cells to interact with one another at a local scale in order to produce complex emergent behaviors at the population level. So far, only a few papers have been written about these "Neural Cellular Automata" models. One reason is that they are a relatively new idea. Another reason is that, although they require expertise in ML to implement, their main intellectual appeal is to an audience interested in cellular morphogenesis. The intersection of people who are comfortable in both worlds is relatively small.
+
+But the mechanics of cellular morphogenesis are extremely important. Indeed, NCA may be the best long-term means of understanding the programming language of our bodies' cells. If DNA is the source code that comes pre-installed on your computer, then cellular morphogenesis is the complex and varied means by which your computer performs its functions: booting up, decompressing files, creating pop-up windows, and so forth. In order to understand your computer as a whole, it makes a lot of sense to start by studying the mechanics of these everyday functions.
+
+With all of this in mind, let's take a closer look at how NCA work and then apply them to some simple biology problems. -->
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The purpose of cellular automata (CA) <em>writ large</em> is to mimic biological growth at the cellular level. Most CAs begin with a grid of pixels where each pixel represents a different cell. Then a set of growth rules, controlling how cells respond to their neighbors, are applied to the population in an iterative manner. Although these growth rules are simple to write down, they are choosen so as to produce complex self-organizing behaviors. For example, Conway’s Game of Life has just three simple growth rules that give rise to a diverse range of structures.<sup id="fnref:fn4" role="doc-noteref"><a href="#fn:fn4" class="footnote" rel="footnote">1</a></sup></p>
+
+<div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
+  <div style="width:49.4%; min-width:280px; display: inline-block; vertical-align: top;text-align:center;">
+    <img src="/assets/studying-growth/conway_rules.jpg" />
+  </div>
+  <div style="width:49.7%; min-width:280px; display: inline-block; vertical-align: top;text-align:center;">
+    <video id="video_conway" controls="" style="width:100%">
+      <source src="/assets/studying-growth/conway.mp4" type="video/mp4" />
+    </video>
+  </div>
+</div>
+
+<p>Classic versions of cellular automata like Conway’s Game of Life are interesting because they produce emergent behavior starting from simple rules. But in a way, these versions of CA are <em>too simple</em>. Their cells only get to have two states, dead or alive, whereas biological cells get to have a near-infinite number of states, states which are determined by a wide variety of signaling molecules. We refer to these molecules as <em>morphogens</em> because they work together to control growth and guide organisms towards specific final shapes or <em>morphologies</em>.</p>
+
+<p><strong>Neural CA.</strong> Based on this observation, we should move away from CA with cells that are only dead or alive. Instead, we should permit their cells to exist in a variety of states with each state defined by a list of continuous variables. Growth rules should operate on combinations of these variables in the same way that biological growth rules operate on combinations of different morphogens. And unlike Conway’s Game of Life, the self-organizing behaviors that arise should not be arbitrary or chaotic. Rather, they should involve stable convergence to <em>specific</em> large-scale morphologies like those that occur in biology. Much more complex growth rules are needed for this to occur.</p>
+
+<div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
+  <img src="/assets/studying-growth/comparison.jpg" />
+</div>
+
+<p>The diagram above shows how NCA take a step in the right direction. Unlike regular cellular automata, they represent each cell state with a real-valued \(n\)-dimensional vector and then allow arbitrary growth rules to operate on that domain. They do this by <em>parameterizing growth rules with a neural network and then optimizing the neural network to obtain the desired pattern of growth</em>. To showcase the model’s expressivity, the authors trained it to arrange a population of a 1600 cells in the shape of a lizard starting from local-only interactions between initially identical cells.</p>
+
+<div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
+  <img src="/assets/studying-growth/nca_schema.jpg" />
+  <div class="thecap" style="text-align:left; display:block; margin-left: auto; margin-right: auto; width:100%">
+  <b>NCA diagram.</b> The diagram above how a neural network can be used to parameterize the growth rules of a cellular autiomata. The <a href="https://distill.pub/2020/growing-ca/">original NCA article</a> uses this diagram to introduce the model and its training procedure.
+  </div>
+</div>
+
+<h2 id="getting-started">Getting started</h2>
+
+<!-- We need to start with a high-quality NCA implementation, one that is flexible enough to modify for the purposes of our experiments. The authors of the original NCA paper released a series of excellent Colab notebooks which show how to implement the model in TensorFlow. But after experimenting with their code, I decided to reimplement everything in PyTorch. I like PyTorch better and I wanted to make a minimalist implementation that would be easy to hack on in order to try out new ideas. You can find it [here](https://colab.research.google.com/drive/13wCM9OV2JR004zFvh7zPgUxrga8sU4d1). -->
+
+<p>The authors of the original paper released a Colab notebook that showed how to implement NCA in TensorFlow. Starting from this notebook, we reimplemented everything in PyTorch and boiled it down to a minimalist, 150-line implementation. Our goal was to make the NCA model as simple as possible so that we could hack and modify it without getting overwhelmed by implementation details.</p>
+
+<div style="display: block; margin-left: auto; margin-right: auto; width:100%; text-align:center;">
+  <a href="https://colab.research.google.com/drive/13wCM9OV2JR004zFvh7zPgUxrga8sU4d1" id="linkbutton" target="_blank"><span class="colab-span">NCA</span> in 150 lines</a>
+</div>
+
+<p>Having implemented our own NCA model, the next step was to scale it to determine the maximum size and complexity of the “organisms” it could produce. We found that the population size was going to be limited by the amount of RAM available on Google Colab GPUs. We maxed things out with a population of about 7500 cells running for about 100 updates. For context, the original paper used a population of 1600 cells running for 86 updates.</p>
+
+<div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
+  <img src="/assets/studying-growth/bloopers.jpg" />
+</div>
+
+<p>Working in this scaled-up regime, we trained our NCA to grow a number of different flowers. Some of the early results were a bit mangled and blurry. Many were biased towards radial symmetry and required extra training in order to reveal symmetric features such as individual petals. But soon, after a few hyperparameter fixes, our NCA was able to grow some “HD” 64x64 flowers:</p>
+
+<div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:65%">
+  <img src="/assets/studying-growth/garden.jpg" />
+</div>
+
+<div style="display: block; margin-left: auto; margin-right: auto; width:100%; text-align:center;">
+  <a href="https://colab.research.google.com/drive/1TgGN5qjjH6MrMrTcStEkdHO-giEJ4bZr" id="linkbutton" target="_blank"><span class="colab-span">HD</span> flowers</a>
+</div>
+
+<p>Having implemented the NCA model and gained some intuition for how it trained, we were ready to use it to investigate patterns of biological growth.</p>
+
+<h2 id="patterns-of-biological-growth">Patterns of biological growth</h2>
+
+<p>Biological growth is wonderfully diverse. Consider this passage from the first chapter of <em>Growth</em> by Life Science Library:</p>
+
+<p><em>A eucalyptus native to Uganda has been known to grow 45 feet in two years, whereas dwarf ivy generally grows one inch a year. The majestic sequoia of California, which starts out as a seed weighing only one three-thousandth of an ounce, may end up… [with a] weight estimated at 6,200 tons. It takes more than 1,000 years for the sequoia to achieve the feat of multiplying 600 billion times in mass.</em></p>
+
+<p><em>The animal kingdom, too, has its champions of growth. The blue whale, which cruises the oceans from the North to the South Pole, begins life as a barely visible egg weighing only a fraction of an ounce. At birth, it weighs from two to three tons. When it is weaned, at about seven months, it is 52 feet long and weighs 23 tons, having gained an average of 200 pounds a day.</em></p>
+
+<p>Given the diversity of life forms on our planet, maybe one of the biggest surprises is how much they have in common. For the most part they share the same genetic materials, signaling mechanisms, and metabolic pathways. Their cells have the same life cycles. Indeed, the cellular mechanics in a gnat look pretty similar to those in a blue whale…even though the creatures themselves could not be more different.</p>
+
+<h3 id="1-gnomonic-growth"><a href="https://colab.research.google.com/drive/1DUFL5glyej725r8VAYDZIFrWvpR6a6-0">1. Gnomonic growth</a></h3>
+
+<p>One shared pattern of growth is called <em>gnomonic growth</em>. This pattern tends to occur when an organism needs to increase in size and part of its body is defined by a rigid structure. You can see this in clams, for example. Their shells are rigid and cannot be deformed. And yet they need to grow their shells as the rest of them grows. Clams solve this problem by incrementally adding long crescent-shaped lips to the edges of their shells. Each new lip is just a little larger than the one that came before it. These lips, or <em>gnomons</em> as they are called, permit organisms to increase in size without changing form. Gnomons also appear in horns, tusks, and tree trunks.</p>
+
+<div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%; min-width:300px">
+  <img src="/assets/studying-growth/gnomons.jpeg" />
+</div>
+
+<p>One of the most famous products of gnomonic growth is the nautilus shell. In this shell, the gnomons grow with such regularity that the overall shape can be modeled with a simple Fibonacci sequence. The elegance and simplicity of the pattern makes it an interesting testbed for NCA.</p>
+
+<div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%; min-width:300px">
+  <img src="/assets/studying-growth/nautilus_photo.jpeg" />
+</div>
+
+<p>To set up this problem, we split the shell into three regions: frozen, mature, and growing. These regions are shown in cyan, black and magenta respectively:</p>
+<div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
+  <img src="/assets/studying-growth/nautilus_train.png" />
+</div>
+<p>The cells in the frozen region are, as the name would suggest, frozen. Both their RGBA and hidden channels are fixed throughout training. The cells in the mature region are similar; the only difference is that their hidden channels are allowed to change. The growing region, meanwhile, begins the simulation without any living cells. Cells from the mature region need to grow outwards into this area and arrange themselves properly before the simulation ends.</p>
+
+<p><strong>Scale and rotation invariance.</strong> Part of the objective in this “gnomonic growth” problem is to learn a growth rule that is scale and rotation invariant. We can accomplish this by rotating and scaling the nautilus template as shown in the six examples above. By training on all of these examples at once, we are able to obtain a model that grows properly at any scale or orientation. Once it learns to do this, it can grow multiple gnomons, one after the other, without much interference. Below, for example, we add eight new compartments and quadruple the shell’s size by letting the NCA run for eight growth cycles.<sup id="fnref:fn3" role="doc-noteref"><a href="#fn:fn3" class="footnote" rel="footnote">2</a></sup></p>
+
+<div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
+  <img src="/assets/studying-growth/nautilus_bw.png" />
+</div>
+
+<p>One of the things that makes this growth pattern interesting is that the NCA cells have to reach a global consensus as to what the scale and rotation of the mature region is. Only by agreeing on this are they able to construct a properly-sized addition. And yet in practice, we see that expansion into the growth region begins from the first simulation step. This suggests that cells in the mature region try to come to a distributed consensus as to the target shape <em>even as</em> new cells are already beginning to grow that shape. Once cells in the mature region know the proper scale and rotation of the gnomon, they transmit this information to the growing region so that it can make small adjustments to its borders. If you look closely, you can see these adjustments happening in the video below.</p>
+
+<div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
+  <div style="width:32%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;padding-right:10px;">
+    <video id="naut_video" style="width:100%;min-width:250px;" poster="/assets/studying-growth/nautilus.png">
+      <source src="/assets/studying-growth/nautilus.mp4" type="video/mp4" />
+    </video>
+    <button class="playbutton" id="naut_video_button" onclick="playPauseNaut()">Play</button>
+  </div>
+</div>
+
+<script> 
+function playPauseNaut() { 
+  var video = document.getElementById("naut_video"); 
+  var button = document.getElementById("naut_video_button");
+  if (video.paused) {
+    video.play();
+    button.textContent = "Pause";}
+  else {
+    video.pause(); 
+  button.textContent = "Play";}
+} 
+</script>
+
+<div style="display: block; margin-left: auto; margin-right: auto; width:100%; text-align:center;">
+  <a href="https://colab.research.google.com/drive/1DUFL5glyej725r8VAYDZIFrWvpR6a6-0" id="linkbutton" target="_blank"><span class="colab-span">Growing</span> a nautilus</a>
+</div>
+
+<p>This process of <em>reaching a consensus in a decentralized and asynchronous manner</em> is a common problem for biological cells. In fact, we already touched on it in our <a href="/2020/08/27/selforg-mnist/">Self-classifying MNIST Digits</a> post. It’s also important in human organizations: from new cities agreeing on development codes, to democratic institutions agreeing on legislation, to the stock market agreeing on how to value companies. It is not always a low-entropy process.</p>
+
+<p>Indeed, sometimes groups of cells have to resort to other means of reaching consensus…</p>
+
+<h3 id="2-embryonic-induction"><a href="https://colab.research.google.com/drive/1fbakmrgkk1y-ZXamH1mKbN1tvkogNrWq">2. Embryonic induction</a></h3>
+
+<p>The alternative to a fully decentralized consensus mechanism is cellular induction. This happens when one small group of cells (usually in an embryo) tells the rest how to grow. The first group of cells is called the inducing tissue and the second is called the responding tissue. Induction controls the growth of many tissues and organs including the eye and the heart.</p>
+
+<p>In this section, we will grow an image of a newt and then graft part of its eye tissue onto its belly. After doing this, we will watch to see whether those cells are able to induce growth in the rest of the eye in that region. We’ve chosen this particular experiment as an homage to <a href="https://en.wikipedia.org/wiki/Hans_Spemann">Hans Spemann</a>,<sup id="fnref:fn2" role="doc-noteref"><a href="#fn:fn2" class="footnote" rel="footnote">3</a></sup> who won the Nobel Prize for Medicine in 1935 for using similar experiments on real newts to discover “the organizer effect in embryonic development.”<sup id="fnref:fn5" role="doc-noteref"><a href="#fn:fn5" class="footnote" rel="footnote">4</a></sup> Spemann’s major insight was that “at every stage of embryonic development, structures already present act as organizers, inducing the emergence of whatever structures are next on the timetable.”<sup id="fnref:fn7" role="doc-noteref"><a href="#fn:fn7" class="footnote" rel="footnote">5</a></sup></p>
+
+<div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:90%">
+  <img src="/assets/studying-growth/newt_timeline_tall.png" style="width:75%; min-width:320px" />
+  <!-- <div class="thecap"  style="text-align:left; display:block; margin-left: auto; margin-right: auto; width:100%">
+    <b>Reproducing Hans Spemann's newt experiment.</b> In the first 100 frames, we grow an image of a newt using the vanilla NCA model described in <a href="https://distill.pub/2020/growing-ca/">Mordvintsev et al. (2020)</a>. Then, in frame 150 we copy the pixels in the yellow rectangle and paste them onto the newt's belly, as shown by the yellow arrow. Note that these pixels contain the upper half of the newt's eye, but not the lower half. We freeze those cells and let the rest of the cells perform updates for another 25 steps. As you can see in frame 175, this induces the belly cells in the blue rectangle to turn black, completing the lower half of the new eye.
+  </div> -->
+</div>
+
+<p>To reproduce this effect, we first trained an NCA to grow a picture of a newt. Once the growth phase was complete, we grafted a patch of cells from its head onto its stomach. This patch of cells included the upper, light-colored portion of the newt’s eye but not the dark-colored, lower portion. Then we froze their states and allowed the rest of the cells to undergo updates as usual. Within 25 steps, the stomach cells below the grafted patch had regrown into a dark-colored strip to complete the lower half of the new eye.</p>
+
+<!-- Hans Spemann's experiment involved the same procedure and produced the same results: he grafted eye lens cells onto the stomach of a real newt and induced the growth of a new eye.
+ -->
+<div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
+  <div style="width:300px; min-width:250px; display: inline-block; vertical-align: top;text-align:center;">
+    <video id="newt_video" style="width:100%;min-width:250px;" controls="" poster="/assets/studying-growth/newt.jpg">
+      <source src="/assets/studying-growth/newt.mp4" type="video/mp4" />
+    </video>
+    <button class="playbutton" id="newt_video_button" onclick="playPauseNewt()">Play</button>
+  </div>
+</div>
+
+<script> 
+function playPauseNewt() { 
+  var video = document.getElementById("newt_video"); 
+  var button = document.getElementById("newt_video_button");
+  if (video.paused) {
+    video.play();
+    button.textContent = "Pause";}
+  else {
+    video.pause(); 
+  button.textContent = "Play";}
+} 
+</script>
+
+<div style="display: block; margin-left: auto; margin-right: auto; width:100%; text-align:center;">
+  <a href="https://colab.research.google.com/drive/1fbakmrgkk1y-ZXamH1mKbN1tvkogNrWq" id="linkbutton" target="_blank"><span class="colab-span">Embryonic</span> induction</a>
+</div>
+
+<p>Cellular induction offers a simple explanation for how many growth rules are implemented: by and large, they are implemented as <code>if-then</code> statements. For example, <em>“If I am growing below some light-colored eye tissue, then I should be black-colored eye tissue.”</em> Early in embryonic development, these <code>if-then</code> statements are very general: <em>“If I am on the outside layer of the embryo, then I am going to be an ectoderm cell. Else, if I am on the inside layer of the embryo, then I am going to be a mesoderm cell. Else, if I am in the center of the embryo, then I am going to be an endoderm cell.”</em></p>
+
+<p>As development progresses, these branching milestones occur dozens of times, each time causing a group of cells to become more specialized. Towards the end of development, the branching rules might read, <em>“If I am an ectoderm cell and if I am a nervous system cell and if I am an eye cell and if I am distal to the optic nerve then I am going to be part of the corneal epithelium.”</em></p>
+
+<p><strong>Attractor theory of development.</strong> While this sounds complex, it’s actually the simplest and most robust way to construct a multicellular organism. Each of these branching statements determines how morphogenesis unfolds at a different hierarchy of complexity. Unlike a printer, which has to place every dot of ink on a page with perfect precision, a growing embryo doesn’t need to know the final coordinates of every mature adult cell. Moreover, it can withstand plenty of noise and perturbations at each stage of development and still produce an intricate, well-formed organism in the end.<sup id="fnref:fn6" role="doc-noteref"><a href="#fn:fn6" class="footnote" rel="footnote">6</a></sup> Intuitively, this is possible because during each stage of growth, clusters of cells naturally converge to target “attractor” states in spite of perturbations. Errors get corrected before the next stage of growth begins. And in the next stage, new attractor states perform error-correction as well. In this way, embryonic induction allows nature to construct multicellular organisms with great reliability, even in a world full of noise and change.</p>
+
+<h3 id="3-apoptosis"><a href="https://colab.research.google.com/drive/1qQcztNsqyMLLMB00CVRxc0Pm7ipca0ww">3. Apoptosis</a></h3>
+
+<p><strong>Death to form the living.</strong> One of the most dramatic <code>if-then</code> statements is <em>“If I am in state <code>x</code>, then I must die.”</em> This gives rise to what biologists call <em>apoptosis</em>, or programmed cell death. Apoptosis is most common when an organism needs to undergo a major change in form: for example, a tadpole losing its tail as it grows into a frog, or a stubby projection in a chick embryo being sculpted into a leg.</p>
+
+<!-- This process is highly choreographed. For example, in the tail of a tadpole, each cell contains a sort of "suicide capsule" full of particular enzymes. When this capsule is broken at the appointed time, the enzymes are released to destroy the cell from the inside. -->
+
+<div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
+  <img src="/assets/studying-growth/apoptosis.jpg" />
+  <div class="thecap" style="text-align:left; display:block; margin-left: auto; margin-right: auto; width:100%">
+  <b>Left.</b> The metamorphosis of a tadpole into a frog is a spectacular example of apoptosis. Soon after the tadpole's tail reaches full size, the frog's back legs begin to grow and the tail rapidly shrinks. In the span of a few months it vanishes entirely. <b>Right.</b> A blue dye that stains only dead cells is applied to a four-year-old chick embryo, revealing apoptosis in the wing and foot buds. These cells are programmed to die at an appointed time in order to shape the wings and feet of the newborn chick (see white circles). Even if these cells are moved to another part of the embryo, they still die at the appointed time. Photo credit: <i>Growth</i> from the LIFE Science Library.
+  </div>
+</div>
+
+<p>One of the best examples of apoptosis in the human body is <a href="https://en.wikipedia.org/wiki/Bone_resorption"><em>bone remodeling</em></a>. This is the process by which bones grow, change shape, and even regrow after a fracture. It’s also a process by which the body manages the supply of important minerals and nutrients such as calcium. In the first year of life, bone resorption proceeds at an especially rapid pace. By the end of that year, almost 100% of the skeleton has been absorbed and replaced.</p>
+
+<p>Even in adults, about 10% of the skeleton is replaced every year.</p>
+
+<div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:80%">
+  <img src="/assets/studying-growth/grow_bone.png" />
+</div>
+
+<p>In this experiment, we trained an NCA model to grow into the shape of a slice of human bone. Since the bone starts its growth in the center of the image, but the center of the target image is empty, the NCA naturally learns a growth pattern that resembles apoptosis. Early in development, a small tan circle forms. The outside edge of this circle expands rapidly outward in a pattern of “bone growth” that would be carried out by <a href="https://en.wikipedia.org/wiki/Osteoblast">osteoblasts</a> in nature. Meanwhile, the inside edge of the circle deteriorates at the same rate in a pattern of “bone resorption” associated with <a href="https://en.wikipedia.org/wiki/Osteoclast">osteoclasts</a> in nature.</p>
+
+<div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
+  <div style="width:32%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;padding-right:10px;">
+    <video id="bone_video" style="width:100%;min-width:250px;" poster="/assets/studying-growth/bone.png">
+      <source src="/assets/studying-growth/bone.mp4" type="video/mp4" />
+    </video>
+    <button class="playbutton" id="bone_video_button" onclick="playPauseBone()">Play</button>
+  </div>
+</div>
+
+<script> 
+function playPauseBone() { 
+  var video = document.getElementById("bone_video"); 
+  var button = document.getElementById("bone_video_button");
+  if (video.paused) {
+    video.play();
+    button.textContent = "Pause";}
+  else {
+    video.pause(); 
+  button.textContent = "Play";}
+} 
+</script>
+
+<div style="display: block; margin-left: auto; margin-right: auto; width:100%; text-align:center;">
+  <a href="https://colab.research.google.com/drive/1qQcztNsqyMLLMB00CVRxc0Pm7ipca0ww" id="linkbutton" target="_blank"><span class="colab-span">Growing</span> a bone</a>
+</div>
+
+<!-- We should note that the cells in this particular NCA don't exactly _die_. They simply turn white. In the future, we hope to grow images with alpha values below 0.1 in the interior.[^fn8] -->
+
+<h3 id="4-speciation"><a href="https://colab.research.google.com/drive/1vG7yjOHxejdk_YfvKhASanNs0YvKDO5-">4. Speciation</a></h3>
+
+<p>We have remarked that gnats and blue whales have more in common, at least in terms of cellular mechanics, than one would guess. They share many of the same cell structures, protiens, and even stages of development like <a href="https://en.wikipedia.org/wiki/Gastrulation">gastrulation</a>. This points to the fact that many different organisms share the same cellular infrastructure. In more closely-related species, this observation is even more apt. For example, the three flowers we grew at the beginning of the article – the rose, the marigold, and the crocus – are all <a href="https://en.wikipedia.org/wiki/Flowering_plant">angiosperms</a> and thus share structures like the <a href="https://en.wikipedia.org/wiki/Xylem">xylem</a> and <a href="https://en.wikipedia.org/wiki/Phloem">phloem</a>.</p>
+
+<p>Indeed, one of the biggest differences between these flowers is their genetic code. Making an analogy to computers, you might say that they have the same hardware (cell mechanics), but different software (DNA).</p>
+
+<p>Our final experiment uses NCA to explore this idea. We run the same cellular dynamics (NCA neural network weights) across several flowers while varying the genetic information (initial state of the seed cell). Our training objective involved three separate targets: the rose, the marigold, and the crocus, each with its own trainable “seed state.” Early in training, our model produced blurry flower-like images with various mixtures of red, yellow, and purple. As training progressed, these images diverged from one another and began to resemble the three target images.</p>
+
+<p>Even though the final shapes diverge, you can still see shared features in the “embryonic” versions of the flowers. If you watch the video below, you can see that the three “embryos” all start out with red, yellow, and purple coloration. The developing crocus, in particular, has both red and purple petals during growth steps 10-20.</p>
+
+<div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
+  <div style="width:100%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;padding-right:10px;">
+    <video id="seeds_video" style="width:100%;min-width:250px;" poster="/assets/studying-growth/seeds.png">
+      <source src="/assets/studying-growth/seeds.mp4" type="video/mp4" />
+    </video>
+    <button class="playbutton" id="seeds_video_button" onclick="playPauseSeeds()">Play</button>
+  </div>
+</div>
+
+<script> 
+function playPauseSeeds() { 
+  var video = document.getElementById("seeds_video"); 
+  var button = document.getElementById("seeds_video_button");
+  if (video.paused) {
+    video.play();
+    button.textContent = "Pause";}
+  else {
+    video.pause(); 
+  button.textContent = "Play";}
+} 
+</script>
+
+<div style="display: block; margin-left: auto; margin-right: auto; width:100%; text-align:center;">
+  <a href="https://colab.research.google.com/drive/1vG7yjOHxejdk_YfvKhASanNs0YvKDO5-" id="linkbutton" target="_blank"><span class="colab-span">Speciation</span> with NCA</a>
+</div>
+
+<p>From a dynamical systems perspective, this NCA model has three different <a href="http://www.scholarpedia.org/article/Basin_of_attraction"><em>basins of attraction</em></a>, one for each flower. The initial seed determines which basin the system ultimately converges to. In the future, it would be interesting to train a model that produces a wider variety of final organisms. Then we could use its “DNA” vectors to construct a “tree of life,” showing how closely-related various organisms are<sup id="fnref:fn9" role="doc-noteref"><a href="#fn:fn9" class="footnote" rel="footnote">7</a></sup> and at what point in training they split from a common ancestor.</p>
+
+<h2 id="final-remarks">Final remarks</h2>
+
+<p>There are a number of ways that NCA can contribute to civilization. The prospect of isolating the top one hundred signaling molecules used in natural morphogenesis, tracking their concentrations during growth in various tissues, and then training an NCA to reproduce the same growth patterns with the same morphogens is particularly exciting. This would allow us to obtain a complex model of biological morphogenesis with some degree of predictive power. Such a model could allow us to solve for the optimal cocktail of signaling molecules needed to speed up, slow down, or otherwise modify cell growth. It could even be used to adversarially slow down the growth of cancerous cells in a patient with cancer or artificially accelerate the growth of bone cells in a patient with osteoporosis.</p>
+
+<p>One of the themes of this post is that <em>patterns of growth are surprisingly similar</em> across organisms. This hints at the fact that there are principles of growth that transcend biology. These principles can be studied in a computational substrate in a way that gives useful insights about the original biological systems. These insights, we believe, shine a new light on the everyday miracle of growth.</p>
+
+<div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
+  <img src="/assets/studying-growth/ferns.jpeg" />
+</div>
+
+<h2 id="footnotes">Footnotes</h2>
+
+<!-- _Now two organisms are exactly alike. Each grows and develops in a unique fashion within the limits that its environment permits. Every species, however, has its own way of growing, and each has its own rate of growth. The range of variations is overwhelming. In as little as three months, for example, one of the grasses native to tropical Ceylon, a bamboo, may shoot up to a height of 120 feet, as tall as a 12-story building, by growing at an average rate of 16 inches a day. A eucalyptus native to Uganda has been known to grow 45 feet in two years, whereas dwarf ivy generally grows one inch a year. The majestic sequoia of California, which starts out as a seed weighing only one three-thousandth of an ounce, may end up 270 feet tall, with a base diameter of 40 feet and a weight estimated at 6,200 tons. It takes more than 1,000 years for the sequoia to achieve the feat of multiplying 600 billion times in mass._
+
+_The animal kingdom, too, has its champions of growth. The blue whale, which cruises the oceans from the North to the South Pole, begins life as a barely visible egg weighing only a fraction of an ounce. At birth, it weighs from two to three tons. When it is weaned, at about seven months, it is 52 feet long and weighs 23 tons, having gained an average of 200 pounds a day. By the time it reaches maturity, in about 13 years, the blue whale is serious competition for many submarines. Then it may weight more than 85 tons and exceet 80 feet in length._ -->
+
+<!-- 
+Just as there is a shared but invisible structure -- based on Newtonian physics -- that underlies the motion of the planets or of a falling apple, so too there is shared structure to the growth rules of multicellular organisms. Of course, it's harder to reduce this structure to a clean set of equations than in physics. There are more exceptions and special cases. But since it reoccurs in diverse and unrelated biological organisms, there is good reason to believe that we can reproduce it in simulations of multicellular systems.
+ -->
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:fn4" role="doc-endnote">
+      <p>In fact, Conway’s Game of Life is Turing Complete; it can be used to simulate computations of arbitrary complexity. It can even be used to <a href="https://twitter.com/AlanZucconi/status/1315967202797981696">simulate itself</a>. <a href="#fnref:fn4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:fn3" role="doc-endnote">
+      <p>Out only interference is to convert growin regions to mature regions and mature regions to frozen regions every 160 steps. This causes the system to move on to the next unit of growth. <a href="#fnref:fn3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:fn2" role="doc-endnote">
+      <p>And his student Hilde <a href="#fnref:fn2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:fn5" role="doc-endnote">
+      <p>“<a href="https://www.nobelprize.org/prizes/medicine/1935/spemann/lecture/">The Organizer-Effect in Embryonic Development</a>,” Hans Spemann, Nobel Lecture, December 12, 1935 <a href="#fnref:fn5" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:fn7" role="doc-endnote">
+      <p><em>Growth</em>, p38. <a href="#fnref:fn7" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:fn6" role="doc-endnote">
+      <p>There’s probably an analogy to be made to fourier analysis where the spatial modes are reconstructed in order of their principal components. Like decompressing a .JPEG file. <a href="#fnref:fn6" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:fn9" role="doc-endnote">
+      <p>These “organisms” are actually <em>images of organisms</em> in this context. <a href="#fnref:fn9" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+  <!-- disqus comments -->
+ 
+  <div id="disqus_thread"></div>
+  <script>
+      /**
+       *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+       *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+       */
+      /*
+      var disqus_config = function () {
+          this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+      */
+      (function() {  // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          
+          s.src = '//greydanus-blog.disqus.com/embed.js';
+          
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  
+
+
+  
+</div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+<center>
+  <div class="wrap">
+
+    <!-- <h2 class="footer-heading">Cyber Analytics and Learning</h2> -->
+
+    <div class="footer-col-1 column">
+      <ul>
+        <li>Cyber Analytics and Learning</li>
+        <!-- <li><a href="mailto:"></a></li> -->
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        
+        
+        <li>
+          <a href="../../../../feed.xml">
+            <span class="icon rss">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="#C2C2C2" d="M6.503 20.752c0 1.794-1.456 3.248-3.251 3.248-1.796 0-3.252-1.454-3.252-3.248 0-1.794 1.456-3.248 3.252-3.248 1.795.001 3.251 1.454 3.251 3.248zm-6.503-12.572v4.811c6.05.062 10.96 4.966 11.022 11.009h4.817c-.062-8.71-7.118-15.758-15.839-15.82zm0-3.368c10.58.046 19.152 8.594 19.183 19.188h4.817c-.03-13.231-10.755-23.954-24-24v4.812z"/></svg>
+            </span>
+            <span class="username">RSS</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">A blog by Monowar Bhuyan</p>
+    </div>
+
+  </div>
+</center>
+</footer>
+
+
+    </body>
+</html>

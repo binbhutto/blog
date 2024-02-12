@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Self-classifying MNIST Digits</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="A blog by Monowar Bhuyan">
+    <link rel="canonical" href="/blog/2020/08/27/selforg-mnist/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Cyber Analytics and Learning posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/assets/main.css">
+
+    <!-- Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72311215-6', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
+    <!-- Allow RSS subscribers, as described in https://dzhavat.github.io/2020/01/19/adding-an-rss-feed-to-github-pages.html -->
+    <link rel="alternate" type="application/atom+xml" title="Sam Greydanus’ blog" href="/feed.xml">
+
+</head>
+
+
+    <body>
+
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:left; margin-top:11px; margin-right:10px;">
+    <img src="/assets/oak.png" width="50px">
+    </div>
+
+    <div style="float:left; margin-top:4px; margin-right:10px;">
+      <a class="site-title" style="padding-top:0px; padding-bottom:0px;" href="/blog/ ">Cyber Analytics and Learning</a>
+      <!--<p style="font-size:14px;">‎‎ㅤㅤㅤ&zwnj;</p> This is very hacky but I couldn't find a better way -->
+      <br>
+      <p style="padding-bottom:6px; font-size:15px;font-weight: 300;">A blog by Monowar Bhuyan</p>
+    </div>
+
+<!--     <a class="site-title" style="padding-top:8px; font-size:28px" href="/blog/ ">Cyber Analytics and Learning</a> -->
+    
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger" style="margin-bottom:0px; padding-top:10px; font-size:13px;font-weight: 300;">
+<!--         <a class="page-link" href="/blog/ ">Home</a> -->
+<!--         
+          <a class="page-link" href="/blog/assets/2017-12-23-neurips17/">A Review of NeurIPS</a>
+        
+          
+        
+          
+        
+          
+        
+          
+         -->
+        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="/index.html">Home</a>
+<!--         <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="../../../../about.html">About me (old)</a> -->
+        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" target="_blank" href="https://people.cs.umu.se/monowar">Profile</a>
+      </div>
+    </nav>
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>Self-classifying MNIST Digits</h1>
+    <p class="meta">Aug 27, 2020 • Sam Greydanus</p>
+  </header>
+
+  <article class="post-content">
+  <div>
+	<style>
+        #linkbutton:link, #linkbutton:visited {
+          padding: 6px 0px;
+          text-decoration: none;
+          display: inline-block;
+
+          border: 2px solid #777;
+          padding: 10px;
+          font-size: 20px;
+          min-width: 200px;
+          width: 50%;
+          text-align: center;
+          color: #999;
+          margin: 0px auto;
+          cursor: pointer;
+          margin-bottom: 10px;
+        }
+
+        #linkbutton:hover, #linkbutton:active {
+          background-color: rgba(245, 245, 245);
+        }
+
+		.playbutton {
+		  background-color: rgb(148, 196, 146);
+		  border-width: 0;
+		  /*background-color: rgba(255, 130, 0);*/
+		  border-radius: 4px;
+		  color: white;
+		  padding: 5px 8px;
+		  /*width: 60px;*/
+		  text-align: center;
+		  text-decoration: none;
+		  text-transform: uppercase;
+		  font-size: 12px;
+		  /*display: block;*/
+		  /*margin-left: auto;*/
+		  margin: 8px 0px;
+		  margin-right: auto;
+		  min-width:60px;
+		}
+
+		.playbutton:hover, .playbutton:active {
+		  background-color: rgb(128, 176, 126);
+		}
+	</style>
+</div>
+
+<p>In this project, we treat every pixel in an image as a biological cell. Then we train these cells to send signals to their neighbors so that, over time, the entire population will agree on what digit they are shaping. Every cell “votes” on the global shape by turning one of ten different colors, corresponding to the ten digits. Sometimes the truth prevails and sometimes they are collectively misguided. I like <a href="https://twitter.com/hardmaru/status/1299152583328559105">@hardmaru’s example</a>, reproduced below, of a 4 vs. a 2 (🔴 🔵). It’s similar to an election process – it even has “swing states:”</p>
+
+<div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
+  <div style="width:100%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;">
+    <video style="width:100%;min-width:250px;" controls="">
+    	<source src="/assets/selforg-digits/screencapture.mp4" type="video/mp4" />
+    </video>
+<!--     <div style="text-align: left;margin-left:10px;margin-right:10px;padding-top: 20px;">
+
+    	</div> -->
+  </div>
+</div>
+
+<p>I encourage you to read the article and try the interactive demo for yourself on Distill:</p>
+
+<div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
+	<a href="https://distill.pub/2020/selforg/mnist/" id="featuredlink" target="_blank" style="margin-right: 10px;">Read the article on Distill</a>
+</div>
+
+<h2 id="useful-properties-of-cellular-automata">Useful properties of Cellular Automata</h2>
+
+<p>One of the takeaways from helping write this Distill article is that cellular automata are fascinating and underrated. In particular, I like them because they are:</p>
+
+<p><strong>Local.</strong> All interactions in physics are local – aside from quantum entanglement, and even that is up for debate.<sup id="fnref:fn2" role="doc-noteref"><a href="#fn:fn2" class="footnote" rel="footnote">1</a></sup> All interactions in chemistry and biology are also local, including the interactions between neurons that allow us to learn. The value of locality is that it is one of the <em>strongest</em> bounds on the complexity of a system. Without locality, any unit (atom, molecule, cell, human) can interact with any other, leading to an exponential growth in causal influences on each unit as the size of the system increases. This is bad news if you want to establish any interesting chains of causality between various sub-units.<sup id="fnref:fn3" role="doc-noteref"><a href="#fn:fn3" class="footnote" rel="footnote">2</a></sup> For example, when you store information using a small chunk of matter, you do so under the assumption that that information will remain where it is and not change in response to external factors.</p>
+
+<p><strong>Parallelizable.</strong> One particularly important advantage of locality is that it makes CAs immensely parallelizable. It’s not hard to train or evaluate a large population of CAs asynchronously: disparate parts of the system never have to communicate or synchronize with one another. This is why, if we do live in a simulation, it is probably implemented with a CA.<sup id="fnref:fn4" role="doc-noteref"><a href="#fn:fn4" class="footnote" rel="footnote">3</a></sup></p>
+
+<p><strong>Scalable in number of cells.</strong> This is closely connected to “parallelizable.” Imagine training a 20x20 population of cells to do something and then running a 200x200 population of them on some downstream task. The numbers are different, but we actually do this in the demo. This is not something you can do with neural networks.</p>
+
+<p><strong>Expressive.</strong> Given how simple some CAs can be – for example, Conway’s Game of Life – they have impressive theoretical properties. They are Turing complete and can simulate any other system. You could even use Conway’s Game of Life to simulate Conway’s Game of Life…and yes, <a href="https://twitter.com/AlanZucconi/status/1315967202797981696">someone actually did this</a>.</p>
+
+<p><strong>Resilient.</strong> Systems where local interactions eventually lead to global behavior are extraordinarily resilient. You can cut a 2-headed planarian in half and both halves will regenerate. You can cut a limb from a tree and the tree will survive. You can leave your company and your coworkers will continue on without you, barely noticing your absence. Ok, that was a joke, they will miss you, but in theory they should be able to cover for you when you take a few vacation days.</p>
+
+<p><strong>Likely to fail gracefully.</strong> It’s hard to define what it means to “fail gracefully” so this last point is a bit subjective. Consider the failure case of the 4/2 pattern from the video above, reproduced below. That shape is far outside of the CA’s training distribution, but it responded in a fairly intuitive manner. On the left is another fun failure case where a CA was trained to grow, from a single cell, into a yellow fish emoji. The population of cells kept growing even after it became a mature fish, but did so in a way that preserved the fish’s shape and body texture.</p>
+
+<div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
+  <div style="width:47.3%; min-width:200px; display: inline-block; vertical-align: top;">
+    <img src="/assets/selforg-digits/42_color.png" style="width:100%" />
+  </div>
+  <div style="width:52%; min-width:300px; display: inline-block; vertical-align: top;">
+    <img src="/assets/selforg-digits/fish.png" style="width:100%" />
+<!--     <div style="text-align:left;">A plot by <a href="https://doi.org/10.1002/jmor.10013">Lindhe (2002)</a> showing aspect ratio versus wing loading index in some birds, airplanes, a hang-glider, a butterfly, and a maple seed. Just like the families of birds, different human flying machines display substantial variation along these axes.</div> -->
+  </div>
+</div>
+
+<p>I like CA as a design motif. They capture a set of elegant design principles that, even if we don’t follow them strictly at all times in other areas of science, are worth thinking about.</p>
+
+<h2 id="parting-words">Parting words</h2>
+
+<p>It feels good to have released the Distill article and demo to the world. Now, on thousands of different browser screens, our little cells are coming to life. They are looking at their particular MNIST pixels, talking to their neighbors, and trying to figure out what their overall digit shape is. Little do they know, they are part of a human scientific endeavor that is much the same. For we humans, too, are looking at our local surroundings, talking with our neighbors, and trying to agree on the overall shape of our reality.</p>
+
+<p>Best of luck to the little cells and to us humans as well.</p>
+
+<h2 id="footnotes">Footnotes</h2>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:fn2" role="doc-endnote">
+      <p>I want to write a post on this, but I have more reading to do first. <a href="#fnref:fn2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:fn3" role="doc-endnote">
+      <p>One of the problems with fully-connected neural networks is that they use very dense connectivity patterns – denser, perhaps, than locality constraints permit in the brain. In recent years, we’ve seen that particular connectivity patterns (e.g. the local connectivity of ConvNets) have major advantages. <a href="#fnref:fn3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:fn4" role="doc-endnote">
+      <p>Which makes the fact that this article is about CA pretty meta. <a href="#fnref:fn4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+  <!-- disqus comments -->
+ 
+  <div id="disqus_thread"></div>
+  <script>
+      /**
+       *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+       *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+       */
+      /*
+      var disqus_config = function () {
+          this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+      */
+      (function() {  // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          
+          s.src = '//greydanus-blog.disqus.com/embed.js';
+          
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  
+
+
+  
+</div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+<center>
+  <div class="wrap">
+
+    <!-- <h2 class="footer-heading">Cyber Analytics and Learning</h2> -->
+
+    <div class="footer-col-1 column">
+      <ul>
+        <li>Cyber Analytics and Learning</li>
+        <!-- <li><a href="mailto:"></a></li> -->
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        
+        
+        <li>
+          <a href="../../../../feed.xml">
+            <span class="icon rss">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="#C2C2C2" d="M6.503 20.752c0 1.794-1.456 3.248-3.251 3.248-1.796 0-3.252-1.454-3.252-3.248 0-1.794 1.456-3.248 3.252-3.248 1.795.001 3.251 1.454 3.251 3.248zm-6.503-12.572v4.811c6.05.062 10.96 4.966 11.022 11.009h4.817c-.062-8.71-7.118-15.758-15.839-15.82zm0-3.368c10.58.046 19.152 8.594 19.183 19.188h4.817c-.03-13.231-10.755-23.954-24-24v4.812z"/></svg>
+            </span>
+            <span class="username">RSS</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">A blog by Monowar Bhuyan</p>
+    </div>
+
+  </div>
+</center>
+</footer>
+
+
+    </body>
+</html>

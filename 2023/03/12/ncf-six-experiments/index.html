@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Six Experiments in Action Minimization</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="A blog by Monowar Bhuyan">
+    <link rel="canonical" href="/blog/2023/03/12/ncf-six-experiments/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Cyber Analytics and Learning posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/assets/main.css">
+
+    <!-- Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72311215-6', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
+    <!-- Allow RSS subscribers, as described in https://dzhavat.github.io/2020/01/19/adding-an-rss-feed-to-github-pages.html -->
+    <link rel="alternate" type="application/atom+xml" title="Sam Greydanus’ blog" href="/feed.xml">
+
+</head>
+
+
+    <body>
+
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:left; margin-top:11px; margin-right:10px;">
+    <img src="/assets/oak.png" width="50px">
+    </div>
+
+    <div style="float:left; margin-top:4px; margin-right:10px;">
+      <a class="site-title" style="padding-top:0px; padding-bottom:0px;" href="/blog/ ">Cyber Analytics and Learning</a>
+      <!--<p style="font-size:14px;">‎‎ㅤㅤㅤ&zwnj;</p> This is very hacky but I couldn't find a better way -->
+      <br>
+      <p style="padding-bottom:6px; font-size:15px;font-weight: 300;">A blog by Monowar Bhuyan</p>
+    </div>
+
+<!--     <a class="site-title" style="padding-top:8px; font-size:28px" href="/blog/ ">Cyber Analytics and Learning</a> -->
+    
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger" style="margin-bottom:0px; padding-top:10px; font-size:13px;font-weight: 300;">
+<!--         <a class="page-link" href="/blog/ ">Home</a> -->
+<!--         
+          <a class="page-link" href="/blog/assets/2017-12-23-neurips17/">A Review of NeurIPS</a>
+        
+          
+        
+          
+        
+          
+        
+          
+         -->
+        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="/index.html">Home</a>
+<!--         <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="../../../../about.html">About me (old)</a> -->
+        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" target="_blank" href="https://people.cs.umu.se/monowar">Profile</a>
+      </div>
+    </nav>
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>Six Experiments in Action Minimization</h1>
+    <p class="meta">Mar 12, 2023 • Sam Greydanus, Tim Strang, and Isabella Caruso</p>
+  </header>
+
+  <article class="post-content">
+  <style>
+.wrap {
+    max-width: 900px;
+}
+p {
+    font-family: sans-serif;
+    font-size: 16.75px;
+    font-weight: 300;
+    overflow-wrap: break-word; /* allow wrapping of very very long strings, like txids */
+}
+.post pre,
+.post code {
+    background-color: #fafafa;
+    font-size: 14px; /* make code smaller for this post... */
+}
+pre {
+ white-space: pre-wrap;       /* css-3 */
+ white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+ white-space: -pre-wrap;      /* Opera 4-6 */
+ white-space: -o-pre-wrap;    /* Opera 7 */
+ word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+</style>
+
+<div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
+  <div style="width:25%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;padding-right:10px;">
+    <video id="video_init" style="width:100%;min-width:250px;">
+      <source src="/assets/ncf/video_3body_0.mp4" type="video/mp4" />
+    </video>
+    <button class="playbutton" id="video_init_button" onclick="playPauseInit()">Play</button> 
+    <div style="text-align: left;margin-left:10px;margin-right:10px;">The initial, highly-perturbed path for the three body problem.</div>
+  </div>
+  <div style="width:25%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;padding-right:10px;">
+    <video id="video_final" style="width:100%;min-width:250px;">
+      <source src="/assets/ncf/video_3body_f.mp4" type="video/mp4" />
+    </video>
+    <button class="playbutton" id="video_final_button" onclick="playPauseFinal()">Play</button> 
+    <div style="text-align:left;margin-left:10px;margin-right:10px;">Dynamics of the three bodies after action minimization.</div>
+  </div>
+</div>
+
+<script>  
+function playPauseInit() { 
+  var video = document.getElementById("video_init"); 
+  var button = document.getElementById("video_init_button");
+  if (video.paused) {
+    video.play();
+  button.textContent = "Pause";}
+  else {
+    video.pause(); 
+  button.textContent = "Play";}
+} 
+
+function playPauseFinal() { 
+  var video = document.getElementById("video_final"); 
+  var button = document.getElementById("video_final_button");
+  if (video.paused) {
+    video.play();
+  button.textContent = "Pause";}
+  else {
+    video.pause(); 
+  button.textContent = "Play";}
+} 
+</script>
+
+<p>In a <a href="../../../../2023/03/05/ncf-tutorial/">recent post</a>, we used gradient descent to find the path of least action for a free body. That this worked at all was interesting – but some important questions remain. For example: how well does this approach transfer to larger, more nonlinear, and more chaotic systems? That is the question we will tackle in this post.</p>
+
+<div style="display: block; margin-left: auto; margin-right:auto; width:100%; text-align:center;">
+  <a href="https://arxiv.org/abs/2303.02115" id="linkbutton" target="_blank">Read the paper</a>
+  <a href="https://colab.research.google.com/github/greydanus/ncf/blob/main/tutorial.ipynb" id="linkbutton" target="_blank"><span class="colab-span">Run</span> in browser</a>
+  <a href="https://github.com/greydanus/ncf" id="linkbutton" target="_blank">Get the code</a>
+</div>
+
+<h2 id="six-systems">Six systems</h2>
+
+<p>In order to determine how action minimization works on more complex systems, we studied six systems of increasing complexity. The first of these was the free body, which served as a minimal working example, useful for debugging. The next system was a simple pendulum – another minimal working example, but this time with periodic nonlinearities and radial coordinates.</p>
+
+<div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:100%;">
+  <img src="/assets/ncf/lagn_plus_schema.png" />
+</div>
+
+<p>Once we had tuned our approach on these two simple systems, we turned our attention to four more complex systems: a double pendulum, the three body problem, a simple gas, and a real ephemeris dataset of planetary motion (the orbits were projected onto a 2D plane). These systems presented an interesting challenge because they were all nonlinear, chaotic, and high-dimensional.<sup id="fnref:fn0" role="doc-noteref"><a href="#fn:fn0" class="footnote" rel="footnote">1</a></sup> In each case, we compared our results to a baseline path obtained with a simple ODE solver using Euler integration.</p>
+
+<h2 id="the-unconstrained-energy-effect">The unconstrained energy effect</h2>
+
+<p>Early in our experiments we encountered <em>the unconstrained energy effect</em>. This happens when the optimizer converges on a valid physical path with a different total energy from the baseline. The figure below shows an example. The reason this happens is that, although we fix the initial and final states, we do not constrain the path’s total energy \(T+V\). Even though paths like the one shown below are not necessarily invalid, they make it difficult for us to recover baseline paths.</p>
+
+<div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:70%;min-width: 300px;">
+  <img src="/assets/ncf/unconstrained.png" />
+</div>
+
+<p>For this reason, we used the baseline ODE paths to initialize our paths, perturbed them with Gaussian noise, and then used early stopping to select for paths which were similar (often, identical) to the ODE baselines. This approach matched the mathematical ansatz of the “calculus of variations” where one studies perturbed paths in the vicinity of the true path. We note that there are other ways to mitigate this effect which don’t require an ODE-generated initial path.<sup id="fnref:fn1" role="doc-noteref"><a href="#fn:fn1" class="footnote" rel="footnote">2</a></sup></p>
+
+<h2 id="results">Results</h2>
+
+<p>On all six physical systems we obtained paths of least action which were nearly identical to the baseline paths. In the figure below you can also see the optimization dynamics. Our results suggest that action minimization can generate physically-valid dynamics even for chaotic and strongly-coupled systems like the double pendulum and three body problem. One interesting pattern we noticed was that optimization dynamics were dominated by the kinetic energy term \(T\). This occured because \(S\) tended to be more sensitive to \(T\) (which grew as \({\bf \dot{x}}^2\)) than \(V\).</p>
+
+<div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:100%;">
+  <img src="/assets/ncf/results.png" />
+</div>
+
+<h2 id="applications">Applications</h2>
+
+<p>The goal of this post was just to demonstrate that action minimization scales to larger problems. Nevertheless, we can’t help but take a moment to speculate on potential applications of this method:</p>
+
+<ul>
+  <li><u>ODE super-resolution.</u> If one were to obtain a low-resolution trajectory via a traditional integration method such as Euler integration, one could then upsample the path by a factor of 10 to 100 (using, eg, linear interpolation) and then run action minimization to make it physically-valid. This procedure would take less time than using the ODE integrator alone.</li>
+  <li><u>Infilling missing data.</u> Many real-world datasets have periods of missing data. These might occur due to a sensor malfunction, or they might be built into the experimental setup – for example, a satellite can’t image clouds and weather patterns as well at night – either way, action minimization is well-suited for inferring the sequence of states that connect a fixed start and end state. Doing this with an ODE integrator, meanwhile, is not as natural because there’s no easy way to incorporate the known end state into the problem definition.</li>
+  <li><u>When the final state is irrelevant.</u> There are many simulation scenarios where the final state is not important at all. What really matters is that the dynamics look realistic in between times \(t_1\) and \(t_2\). This is the case for simulated smoke in a video game: the smoke just needs to look realistic. With that in mind, we could choose a random final state and then minimize the action of the intervening states. This could allow us to obtain realistic graphics more quickly than numerical methods that don’t fix the final state.</li>
+</ul>
+
+<h2 id="discussion">Discussion</h2>
+
+<p>Action minimization shows how the action really does act like a cost function. This isn’t something you’ll hear in your physics courses, even most high-level ones. And yet, it’s an elegant and accurate way to view physics. In a future post, we’ll see how this notion extends even into quantum mechanics.</p>
+
+<h2 id="footnotes">Footnotes</h2>
+
+<p>The double pendulum and Lennard-Jones potentials were too long to fit into the table above. Here they are:</p>
+
+<div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:100%;">
+  <img src="/assets/ncf/lagrangians_fn.png" />
+</div>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:fn0" role="doc-endnote">
+      <p>The state of the simple gas, for example, has a hundred degrees of freedom. <a href="#fnref:fn0" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:fn1" role="doc-endnote">
+      <p>We discuss these in the Appendix of the paper. <a href="#fnref:fn1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+  <!-- disqus comments -->
+ 
+  <div id="disqus_thread"></div>
+  <script>
+      /**
+       *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+       *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+       */
+      /*
+      var disqus_config = function () {
+          this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+      */
+      (function() {  // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          
+          s.src = '//greydanus-blog.disqus.com/embed.js';
+          
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  
+
+
+  
+</div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+<center>
+  <div class="wrap">
+
+    <!-- <h2 class="footer-heading">Cyber Analytics and Learning</h2> -->
+
+    <div class="footer-col-1 column">
+      <ul>
+        <li>Cyber Analytics and Learning</li>
+        <!-- <li><a href="mailto:"></a></li> -->
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        
+        
+        <li>
+          <a href="../../../../feed.xml">
+            <span class="icon rss">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="#C2C2C2" d="M6.503 20.752c0 1.794-1.456 3.248-3.251 3.248-1.796 0-3.252-1.454-3.252-3.248 0-1.794 1.456-3.248 3.252-3.248 1.795.001 3.251 1.454 3.251 3.248zm-6.503-12.572v4.811c6.05.062 10.96 4.966 11.022 11.009h4.817c-.062-8.71-7.118-15.758-15.839-15.82zm0-3.368c10.58.046 19.152 8.594 19.183 19.188h4.817c-.03-13.231-10.755-23.954-24-24v4.812z"/></svg>
+            </span>
+            <span class="username">RSS</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">A blog by Monowar Bhuyan</p>
+    </div>
+
+  </div>
+</center>
+</footer>
+
+
+    </body>
+</html>

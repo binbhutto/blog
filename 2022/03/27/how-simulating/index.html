@@ -40,7 +40,7 @@
   <div class="wrap">
 
     <div style="float:left; margin-top:11px; margin-right:10px;">
-    <img src="assets/oak.png" width="50px">
+    <img src="/assets/oak.png" width="50px">
     </div>
 
     <div style="float:left; margin-top:4px; margin-right:10px;">
@@ -78,7 +78,7 @@
         
           
          -->
-        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="/index.html">Home</a>
+        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="/blog">Home</a>
 <!--         <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="../../../../about.html">About me (old)</a> -->
         <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" target="_blank" href="https://people.cs.umu.se/monowar">Profile</a>
       </div>
@@ -101,7 +101,7 @@
   <!-- ## The Universe as a Simulation -->
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:15%; min-width:200px;">
-  <img src="assets/how-simulating/galaxy.png" />
+  <img src="/assets/how-simulating/galaxy.png" />
 </div>
 
 <p>Let’s imagine the universe is being simulated. Based on what we know about physics, what can we say about how the simulation would be implemented? Well, it would probably have:</p>
@@ -121,7 +121,7 @@
 <p>The first thing to see is that assumptions 1 and 2 are in tension with one another. In order to ensure that a quantity (eg mass-energy) is conserved, you need to sum that quantity across the entire simulation, determine whether a correction is needed, and then apply that correction to the system as a whole. Computationally, this requires a synchronous <a href="https://en.wikipedia.org/wiki/Reduction_operator">reduction operation</a> and an element-wise divide at virtually every timestep.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
-  <img src="assets/how-simulating/fig1.png" />
+  <img src="/assets/how-simulating/fig1.png" />
       <div class="thecap" style="text-align:left; display:block; margin-left: auto; margin-right: auto; width:100%">
   A conceptual outline of a large-scale physics simulation where different regions of space are being simulated in parallel. This parallelization is possible because nothing can travel faster than the speed of light; thus the separate regions can be simulated independently over short timescales.
   </div>
@@ -144,7 +144,7 @@
 <p>We should recognize that this approach comes at a price. It demands that we sacrifice <em>locality</em>, the principle that an object is influenced directly only by its immediate surroundings. It’s one of the most sacred principles in physics. This gets violated in the example of the two photons because a change in the polarization of the first photon will update the value of <code class="language-plaintext highlighter-rouge">x</code>, implicitly changing the polarization of the second photon.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
-  <img src="assets/how-simulating/fig2.png" />
+  <img src="/assets/how-simulating/fig2.png" />
     <div class="thecap" style="text-align:left; display:block; margin-left: auto; margin-right: auto; width:100%">
   This figure is inspired by the experimental setup of <a href="https://drive.google.com/file/d/1ac4E87cKMgp90PfoNeTaRiVE3HEC9ubJ/view?usp=sharing">Clauser and Horne (1974)</a> used to test the Bell inequality. Here we are hypothesizing the existence of a shared hidden variable <i>x</i> which, when updated due to the left photon's interaction with a polarizer, also affects the right photon's polarization.
   </div>
@@ -165,7 +165,7 @@
 <p>How would one implement filtering in a large-scale, particle-based simulation of the universe? Well, if the simulation were particle-based instead of grid-based, we couldn’t apply a Gaussian or cone filter. An alternative would be to simulate the dynamics of each particle using ensembles of virtual particles. One could initialize a group of these virtual particles with slightly different initial conditions and then simulate all of them through time. If you allowed these virtual particles to interact with other virtual particles in the ensemble, the entire ensemble would collectively behave as though it were a wave.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
-  <img src="assets/how-simulating/fig3.png" style="width:90%" />
+  <img src="/assets/how-simulating/fig3.png" style="width:90%" />
     <div class="thecap" style="text-align:left; display:block; margin-left: auto; margin-right: auto; width:100%">
   Wave-particle behavior of a photon as a consequence of using an ensemble of virtual particles and selecting just one to transfer a quanta of energy to the photoreceptor.
   </div>
@@ -188,7 +188,7 @@
 <p><em>We set up the apparatus used to test Bell’s inequality. Entangled photons emerge from a source and head in opposite directions. Eventually they get their polarizations measured. We allow the first photon in the pair to enter a double slit experiment. As it passes through the double slit, it interferes with itself, producing a wavelike diffraction pattern on the detector.</em></p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
-  <img src="assets/how-simulating/fig4.png" style="width:80%" />
+  <img src="/assets/how-simulating/fig4.png" style="width:80%" />
   <div class="thecap" style="text-align:left; display:block; margin-left: auto; margin-right: auto; width:100%">
   One possible means of testing the hypothesis we have outlined. If photons used to test the Bell inequality behave in this manner when they encounter a double slit setup, one could use them to transmit information faster than the speed of light, violating the locality assumption.
   </div>

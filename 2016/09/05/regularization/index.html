@@ -40,7 +40,7 @@
   <div class="wrap">
 
     <div style="float:left; margin-top:11px; margin-right:10px;">
-    <img src="assets/oak.png" width="50px">
+    <img src="/assets/oak.png" width="50px">
     </div>
 
     <div style="float:left; margin-top:4px; margin-right:10px;">
@@ -78,7 +78,7 @@
         
           
          -->
-        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="/index.html">Home</a>
+        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="/blog">Home</a>
 <!--         <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="../../../../about.html">About me (old)</a> -->
         <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" target="_blank" href="https://people.cs.umu.se/monowar">Profile</a>
       </div>
@@ -99,7 +99,7 @@
 
   <article class="post-content">
   <div class="imgcap_noborder">
-	<img src="assets/regularization/intro.png" width="20%" />
+	<img src="/assets/regularization/intro.png" width="20%" />
 </div>
 
 <p>Regularization seems fairly insignificant at first glance but it has a huge impact on deep models. I’ll use a one-layer neural network trained on the MNIST dataset to give an intuition for how common regularization techniques affect learning.</p>
@@ -109,7 +109,7 @@
 <h2 id="mnist-classification">MNIST Classification</h2>
 
 <div class="imgcap">
-	<img src="assets/regularization/mnist.png" width="30%" />
+	<img src="/assets/regularization/mnist.png" width="30%" />
 	<div class="thecap" style="text-align:center">MNIST training samples</div>
 </div>
 
@@ -143,7 +143,7 @@
 
 <p><code class="language-plaintext highlighter-rouge"># no additional code</code></p>
 <div class="imgcap">
-	<img src="assets/regularization/noreg.png" width="70%" />
+	<img src="/assets/regularization/noreg.png" width="70%" />
 	<div class="thecap" style="text-align:center"><b>No regularization:</b> these 'weight images' have a salt-and-pepper texture which suggests overfitting. Even so, the shadows of each of the digits are clearly visible</div>
 </div>
 
@@ -153,7 +153,7 @@
 
 <p><code class="language-plaintext highlighter-rouge">x = tf.nn.dropout(x, 0.5)</code></p>
 <div class="imgcap">
-	<img src="assets/regularization/drop.png" width="70%" />
+	<img src="/assets/regularization/drop.png" width="70%" />
 	<div class="thecap" style="text-align:center"><b>Dropout:</b> these 'weight images' are much smoother because dropout prevents the model from placing too much trust in any one of its input features.</div>
 </div>
 
@@ -162,7 +162,7 @@
 <p>The idea here is that some uncertainty is associated with every weight in the model. Weights exist in weight space not as points but as probability distributions (see below). Making a conditional independence assumption and choosing to draw a Gaussian distribution, we can represent each weight using a \(\mu\) and a \(\sigma\). Alex Graves indroduced used this concept in his <a href="http://www.cs.toronto.edu/~graves/nips_2011_poster.pdf">adaptive weight noise poster</a> and it also appears to be a fundamental idea in <a href="https://en.wikipedia.org/wiki/Variational_Bayesian_methods">Variational Bayes models</a>.</p>
 
 <div class="imgcap">
-	<img src="assets/regularization/gweight_compare.png" width="60%" />
+	<img src="/assets/regularization/gweight_compare.png" width="60%" />
 	<div class="thecap" style="text-align:center">How to represent an optimal point in weight space</div>
 </div>
 
@@ -175,7 +175,7 @@
 <span class="n">W</span> <span class="o">=</span> <span class="n">gaussian</span><span class="p">(</span><span class="n">noise_source</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span> <span class="c1"># draw each weight from a Gaussian distribution
 </span></code></pre></div></div>
 <div class="imgcap">
-	<img src="assets/regularization/gauss.png" width="70%" />
+	<img src="/assets/regularization/gauss.png" width="70%" />
 	<div class="thecap" style="text-align:center"><b>Gaussian weight regularization:</b> these 'weight images' are really different but the model approaches the same training accuracy as the unregularized version.</div>
 </div>
 
@@ -187,7 +187,7 @@
 		 <span class="nb">sum</span><span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="n">get_collection</span><span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="n">GraphKeys</span><span class="p">.</span><span class="n">REGULARIZATION_LOSSES</span><span class="p">))</span>
 </code></pre></div></div>
 <div class="imgcap">
-	<img src="assets/regularization/mag.png" width="70%" />
+	<img src="/assets/regularization/mag.png" width="70%" />
 	<div class="thecap" style="text-align:center"><b>L2 regularization:</b> these 'weight images' are very smooth and the digits are clear. Though the model has a better representation of how each digit appears, the test accuracy is low because messy/unusual examples don't fit the template well.</div>
 </div>
 
@@ -198,7 +198,7 @@
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">W</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">l2_normalize</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
 </code></pre></div></div>
 <div class="imgcap">
-	<img src="assets/regularization/norm.png" width="70%" />
+	<img src="/assets/regularization/norm.png" width="70%" />
 	<div class="thecap" style="text-align:center"><b>Weight normalization:</b> it's interesting to note that normalizing the weight matrix has the same effect here as L2 regularization</div>
 </div>
 

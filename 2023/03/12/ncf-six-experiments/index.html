@@ -40,7 +40,7 @@
   <div class="wrap">
 
     <div style="float:left; margin-top:11px; margin-right:10px;">
-    <img src="assets/oak.png" width="50px">
+    <img src="/assets/oak.png" width="50px">
     </div>
 
     <div style="float:left; margin-top:4px; margin-right:10px;">
@@ -78,7 +78,7 @@
         
           
          -->
-        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="/index.html">Home</a>
+        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="/blog">Home</a>
 <!--         <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="../../../../about.html">About me (old)</a> -->
         <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" target="_blank" href="https://people.cs.umu.se/monowar">Profile</a>
       </div>
@@ -125,14 +125,14 @@ pre {
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:25%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;padding-right:10px;">
     <video id="video_init" style="width:100%;min-width:250px;">
-      <source src="assets/ncf/video_3body_0.mp4" type="video/mp4" />
+      <source src="/assets/ncf/video_3body_0.mp4" type="video/mp4" />
     </video>
     <button class="playbutton" id="video_init_button" onclick="playPauseInit()">Play</button> 
     <div style="text-align: left;margin-left:10px;margin-right:10px;">The initial, highly-perturbed path for the three body problem.</div>
   </div>
   <div style="width:25%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;padding-right:10px;">
     <video id="video_final" style="width:100%;min-width:250px;">
-      <source src="assets/ncf/video_3body_f.mp4" type="video/mp4" />
+      <source src="/assets/ncf/video_3body_f.mp4" type="video/mp4" />
     </video>
     <button class="playbutton" id="video_final_button" onclick="playPauseFinal()">Play</button> 
     <div style="text-align:left;margin-left:10px;margin-right:10px;">Dynamics of the three bodies after action minimization.</div>
@@ -176,7 +176,7 @@ function playPauseFinal() {
 <p>In order to determine how action minimization works on more complex systems, we studied six systems of increasing complexity. The first of these was the free body, which served as a minimal working example, useful for debugging. The next system was a simple pendulum – another minimal working example, but this time with periodic nonlinearities and radial coordinates.</p>
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:100%;">
-  <img src="assets/ncf/lagn_plus_schema.png" />
+  <img src="/assets/ncf/lagn_plus_schema.png" />
 </div>
 
 <p>Once we had tuned our approach on these two simple systems, we turned our attention to four more complex systems: a double pendulum, the three body problem, a simple gas, and a real ephemeris dataset of planetary motion (the orbits were projected onto a 2D plane). These systems presented an interesting challenge because they were all nonlinear, chaotic, and high-dimensional.<sup id="fnref:fn0" role="doc-noteref"><a href="#fn:fn0" class="footnote" rel="footnote">1</a></sup> In each case, we compared our results to a baseline path obtained with a simple ODE solver using Euler integration.</p>
@@ -186,7 +186,7 @@ function playPauseFinal() {
 <p>Early in our experiments we encountered <em>the unconstrained energy effect</em>. This happens when the optimizer converges on a valid physical path with a different total energy from the baseline. The figure below shows an example. The reason this happens is that, although we fix the initial and final states, we do not constrain the path’s total energy \(T+V\). Even though paths like the one shown below are not necessarily invalid, they make it difficult for us to recover baseline paths.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:70%;min-width: 300px;">
-  <img src="assets/ncf/unconstrained.png" />
+  <img src="/assets/ncf/unconstrained.png" />
 </div>
 
 <p>For this reason, we used the baseline ODE paths to initialize our paths, perturbed them with Gaussian noise, and then used early stopping to select for paths which were similar (often, identical) to the ODE baselines. This approach matched the mathematical ansatz of the “calculus of variations” where one studies perturbed paths in the vicinity of the true path. We note that there are other ways to mitigate this effect which don’t require an ODE-generated initial path.<sup id="fnref:fn1" role="doc-noteref"><a href="#fn:fn1" class="footnote" rel="footnote">2</a></sup></p>
@@ -196,7 +196,7 @@ function playPauseFinal() {
 <p>On all six physical systems we obtained paths of least action which were nearly identical to the baseline paths. In the figure below you can also see the optimization dynamics. Our results suggest that action minimization can generate physically-valid dynamics even for chaotic and strongly-coupled systems like the double pendulum and three body problem. One interesting pattern we noticed was that optimization dynamics were dominated by the kinetic energy term \(T\). This occured because \(S\) tended to be more sensitive to \(T\) (which grew as \({\bf \dot{x}}^2\)) than \(V\).</p>
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:100%;">
-  <img src="assets/ncf/results.png" />
+  <img src="/assets/ncf/results.png" />
 </div>
 
 <h2 id="applications">Applications</h2>
@@ -218,7 +218,7 @@ function playPauseFinal() {
 <p>The double pendulum and Lennard-Jones potentials were too long to fit into the table above. Here they are:</p>
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:100%;">
-  <img src="assets/ncf/lagrangians_fn.png" />
+  <img src="/assets/ncf/lagrangians_fn.png" />
 </div>
 <div class="footnotes" role="doc-endnotes">
   <ol>

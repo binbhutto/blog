@@ -40,7 +40,7 @@
   <div class="wrap">
 
     <div style="float:left; margin-top:11px; margin-right:10px;">
-    <img src="assets/oak.png" width="50px">
+    <img src="/assets/oak.png" width="50px">
     </div>
 
     <div style="float:left; margin-top:4px; margin-right:10px;">
@@ -78,7 +78,7 @@
         
           
          -->
-        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="/index.html">Home</a>
+        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="/blog">Home</a>
 <!--         <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="../../../../about.html">About me (old)</a> -->
         <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" target="_blank" href="https://people.cs.umu.se/monowar">Profile</a>
       </div>
@@ -142,7 +142,7 @@
 </div>
 
 <!-- <div class="imgcap_noborder">
-  <img src="assets/story-of-flight/hummingbird.png" style="width:10%;min-width:150px;">
+  <img src="/assets/story-of-flight/hummingbird.png" style="width:10%;min-width:150px;">
 </div> -->
 
 <p>When I was growing up, hummingbirds used to fly into our garage and get stuck. I remember finding one perched on a windowsill, weak from exertion. It let me fold my hands around it and carry it outside. And when I opened my hands, it lay on my palms for a moment. That’s when the sunlight ignited its iridescent plumage and engulfed its whole body in a cloud of blues and greens. Then it understood it was free, whirred its wings, and vanished into the open air. Long after it had departed, my mind’s eye gazed upon the little bird. With an idle curiosity, I tried to imagine how natural forces could have wrought such a thing. We know of lift and drag, thrust and gravity as rough textbook concepts. But it’s another thing entirely to gaze upon a creature of beauty and sophistication and realize that it was shaped in part by those simple forces.</p>
@@ -151,15 +151,15 @@
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:32.8%; min-width:200px; display: inline-block; vertical-align: top;">
-    <img src="assets/story-of-flight/leonardo.jpg" style="width:100%" />
+    <img src="/assets/story-of-flight/leonardo.jpg" style="width:100%" />
     <div style="text-align: left;">Leonardo da Vinci, an important figure in the history of flight.</div>
   </div>
   <div style="width:32.8%; min-width:200px; display: inline-block; vertical-align: top;">
-    <img src="assets/story-of-flight/lilienthal.jpg" style="width:100%" />
+    <img src="/assets/story-of-flight/lilienthal.jpg" style="width:100%" />
     <div style="text-align:left;">Otto Lilienthal, who made key technological breakthroughs in wing shape and design.</div>
   </div>
   <div style="width:32.8%; min-width:200px; display: inline-block; vertical-align: top;">
-    <img src="assets/story-of-flight/wing_shape.png" id="wingShapeImage" onclick="toggleWingShape()" style="width:100%" />
+    <img src="/assets/story-of-flight/wing_shape.png" id="wingShapeImage" onclick="toggleWingShape()" style="width:100%" />
     <div style="text-align:left;">Optimizing our own wing in a fluid simulation. <p style="color:grey;display:inline;">[Click to pause or play.]</p></div>
   </div>
 </div>
@@ -188,15 +188,15 @@
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:35.5%; min-width:180px; display: inline-block; vertical-align: top;">
-    <img src="assets/story-of-flight/davinci_glider.jpg" style="width:100%" />
+    <img src="/assets/story-of-flight/davinci_glider.jpg" style="width:100%" />
     <div style="text-align: left;">A page from one of da Vinci's journals describes an "air screw" that resembles a modern helicopter. </div>
   </div>
   <div style="width:26.9%; min-width:130px; display: inline-block; vertical-align: top;">
-    <img src="assets/story-of-flight/balloon.png" style="width:100%" />
+    <img src="/assets/story-of-flight/balloon.png" style="width:100%" />
     <div style="text-align:left;">Pilatre de Rozier and his companion take off in a hot air balloon.</div>
   </div>
   <div style="width:36.4%; min-width:180px; display: inline-block; vertical-align: top;">
-    <img src="assets/story-of-flight/earhart.jpg" style="width:100%" />
+    <img src="/assets/story-of-flight/earhart.jpg" style="width:100%" />
     <div style="text-align:left;">Amelia Earhart sitting upon the nose of her plane in 1936.</div>
   </div>
 </div>
@@ -221,11 +221,11 @@
     path = document.getElementById("wingShapeImage").src
       if (path.split('/').pop() == "wing_shape.png") 
       {
-          document.getElementById("wingShapeImage").src = "assets/story-of-flight/wing_summary.gif";
+          document.getElementById("wingShapeImage").src = "/assets/story-of-flight/wing_summary.gif";
       }
       else 
       {
-          document.getElementById("wingShapeImage").src = "assets/story-of-flight/wing_shape.png";
+          document.getElementById("wingShapeImage").src = "/assets/story-of-flight/wing_shape.png";
       }
   }
 </script>

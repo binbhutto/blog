@@ -40,7 +40,7 @@
   <div class="wrap">
 
     <div style="float:left; margin-top:11px; margin-right:10px;">
-    <img src="assets/oak.png" width="50px">
+    <img src="/assets/oak.png" width="50px">
     </div>
 
     <div style="float:left; margin-top:4px; margin-right:10px;">
@@ -78,7 +78,7 @@
         
           
          -->
-        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="/index.html">Home</a>
+        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="/blog">Home</a>
 <!--         <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="../../../../about.html">About me (old)</a> -->
         <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" target="_blank" href="https://people.cs.umu.se/monowar">Profile</a>
       </div>
@@ -102,20 +102,20 @@
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:32%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;padding-right:10px;">
-    <video id="video1" style="width:100%;min-width:250px;" poster="assets/studying-growth/rose.jpg">
-      <source src="assets/studying-growth/rose.mp4" type="video/mp4" />
+    <video id="video1" style="width:100%;min-width:250px;" poster="/assets/studying-growth/rose.jpg">
+      <source src="/assets/studying-growth/rose.mp4" type="video/mp4" />
     </video>
     <button class="playbutton" id="video1_button" onclick="playPauseVideo1()">Play</button>
   </div>
   <div style="width:32%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;padding-right:10px;">
-    <video id="video2" style="width:100%;min-width:250px;" poster="assets/studying-growth/marigold.jpg">
-      <source src="assets/studying-growth/marigold.mp4" type="video/mp4" />
+    <video id="video2" style="width:100%;min-width:250px;" poster="/assets/studying-growth/marigold.jpg">
+      <source src="/assets/studying-growth/marigold.mp4" type="video/mp4" />
     </video>
     <button class="playbutton" id="video2_button" onclick="playPauseVideo2()">Play</button>
   </div>
    <div style="width:32%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;">
-    <video id="video3" style="width:100%;min-width:250px;" poster="assets/studying-growth/crocus.jpg">
-      <source src="assets/studying-growth/crocus.mp4" type="video/mp4" />
+    <video id="video3" style="width:100%;min-width:250px;" poster="/assets/studying-growth/crocus.jpg">
+      <source src="/assets/studying-growth/crocus.mp4" type="video/mp4" />
     </video>
     <button class="playbutton" id="video3_button" onclick="playPauseVideo3()">Play</button>
   </div>
@@ -180,11 +180,11 @@ With all of this in mind, let's take a closer look at how NCA work and then appl
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:49.4%; min-width:280px; display: inline-block; vertical-align: top;text-align:center;">
-    <img src="assets/studying-growth/conway_rules.jpg" />
+    <img src="/assets/studying-growth/conway_rules.jpg" />
   </div>
   <div style="width:49.7%; min-width:280px; display: inline-block; vertical-align: top;text-align:center;">
     <video id="video_conway" controls="" style="width:100%">
-      <source src="assets/studying-growth/conway.mp4" type="video/mp4" />
+      <source src="/assets/studying-growth/conway.mp4" type="video/mp4" />
     </video>
   </div>
 </div>
@@ -194,13 +194,13 @@ With all of this in mind, let's take a closer look at how NCA work and then appl
 <p><strong>Neural CA.</strong> Based on this observation, we should move away from CA with cells that are only dead or alive. Instead, we should permit their cells to exist in a variety of states with each state defined by a list of continuous variables. Growth rules should operate on combinations of these variables in the same way that biological growth rules operate on combinations of different morphogens. And unlike Conway’s Game of Life, the self-organizing behaviors that arise should not be arbitrary or chaotic. Rather, they should involve stable convergence to <em>specific</em> large-scale morphologies like those that occur in biology. Much more complex growth rules are needed for this to occur.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
-  <img src="assets/studying-growth/comparison.jpg" />
+  <img src="/assets/studying-growth/comparison.jpg" />
 </div>
 
 <p>The diagram above shows how NCA take a step in the right direction. Unlike regular cellular automata, they represent each cell state with a real-valued \(n\)-dimensional vector and then allow arbitrary growth rules to operate on that domain. They do this by <em>parameterizing growth rules with a neural network and then optimizing the neural network to obtain the desired pattern of growth</em>. To showcase the model’s expressivity, the authors trained it to arrange a population of a 1600 cells in the shape of a lizard starting from local-only interactions between initially identical cells.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
-  <img src="assets/studying-growth/nca_schema.jpg" />
+  <img src="/assets/studying-growth/nca_schema.jpg" />
   <div class="thecap" style="text-align:left; display:block; margin-left: auto; margin-right: auto; width:100%">
   <b>NCA diagram.</b> The diagram above how a neural network can be used to parameterize the growth rules of a cellular autiomata. The <a href="https://distill.pub/2020/growing-ca/">original NCA article</a> uses this diagram to introduce the model and its training procedure.
   </div>
@@ -219,13 +219,13 @@ With all of this in mind, let's take a closer look at how NCA work and then appl
 <p>Having implemented our own NCA model, the next step was to scale it to determine the maximum size and complexity of the “organisms” it could produce. We found that the population size was going to be limited by the amount of RAM available on Google Colab GPUs. We maxed things out with a population of about 7500 cells running for about 100 updates. For context, the original paper used a population of 1600 cells running for 86 updates.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
-  <img src="assets/studying-growth/bloopers.jpg" />
+  <img src="/assets/studying-growth/bloopers.jpg" />
 </div>
 
 <p>Working in this scaled-up regime, we trained our NCA to grow a number of different flowers. Some of the early results were a bit mangled and blurry. Many were biased towards radial symmetry and required extra training in order to reveal symmetric features such as individual petals. But soon, after a few hyperparameter fixes, our NCA was able to grow some “HD” 64x64 flowers:</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:65%">
-  <img src="assets/studying-growth/garden.jpg" />
+  <img src="/assets/studying-growth/garden.jpg" />
 </div>
 
 <div style="display: block; margin-left: auto; margin-right: auto; width:100%; text-align:center;">
@@ -249,33 +249,33 @@ With all of this in mind, let's take a closer look at how NCA work and then appl
 <p>One shared pattern of growth is called <em>gnomonic growth</em>. This pattern tends to occur when an organism needs to increase in size and part of its body is defined by a rigid structure. You can see this in clams, for example. Their shells are rigid and cannot be deformed. And yet they need to grow their shells as the rest of them grows. Clams solve this problem by incrementally adding long crescent-shaped lips to the edges of their shells. Each new lip is just a little larger than the one that came before it. These lips, or <em>gnomons</em> as they are called, permit organisms to increase in size without changing form. Gnomons also appear in horns, tusks, and tree trunks.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%; min-width:300px">
-  <img src="assets/studying-growth/gnomons.jpeg" />
+  <img src="/assets/studying-growth/gnomons.jpeg" />
 </div>
 
 <p>One of the most famous products of gnomonic growth is the nautilus shell. In this shell, the gnomons grow with such regularity that the overall shape can be modeled with a simple Fibonacci sequence. The elegance and simplicity of the pattern makes it an interesting testbed for NCA.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%; min-width:300px">
-  <img src="assets/studying-growth/nautilus_photo.jpeg" />
+  <img src="/assets/studying-growth/nautilus_photo.jpeg" />
 </div>
 
 <p>To set up this problem, we split the shell into three regions: frozen, mature, and growing. These regions are shown in cyan, black and magenta respectively:</p>
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
-  <img src="assets/studying-growth/nautilus_train.png" />
+  <img src="/assets/studying-growth/nautilus_train.png" />
 </div>
 <p>The cells in the frozen region are, as the name would suggest, frozen. Both their RGBA and hidden channels are fixed throughout training. The cells in the mature region are similar; the only difference is that their hidden channels are allowed to change. The growing region, meanwhile, begins the simulation without any living cells. Cells from the mature region need to grow outwards into this area and arrange themselves properly before the simulation ends.</p>
 
 <p><strong>Scale and rotation invariance.</strong> Part of the objective in this “gnomonic growth” problem is to learn a growth rule that is scale and rotation invariant. We can accomplish this by rotating and scaling the nautilus template as shown in the six examples above. By training on all of these examples at once, we are able to obtain a model that grows properly at any scale or orientation. Once it learns to do this, it can grow multiple gnomons, one after the other, without much interference. Below, for example, we add eight new compartments and quadruple the shell’s size by letting the NCA run for eight growth cycles.<sup id="fnref:fn3" role="doc-noteref"><a href="#fn:fn3" class="footnote" rel="footnote">2</a></sup></p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
-  <img src="assets/studying-growth/nautilus_bw.png" />
+  <img src="/assets/studying-growth/nautilus_bw.png" />
 </div>
 
 <p>One of the things that makes this growth pattern interesting is that the NCA cells have to reach a global consensus as to what the scale and rotation of the mature region is. Only by agreeing on this are they able to construct a properly-sized addition. And yet in practice, we see that expansion into the growth region begins from the first simulation step. This suggests that cells in the mature region try to come to a distributed consensus as to the target shape <em>even as</em> new cells are already beginning to grow that shape. Once cells in the mature region know the proper scale and rotation of the gnomon, they transmit this information to the growing region so that it can make small adjustments to its borders. If you look closely, you can see these adjustments happening in the video below.</p>
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:32%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;padding-right:10px;">
-    <video id="naut_video" style="width:100%;min-width:250px;" poster="assets/studying-growth/nautilus.png">
-      <source src="assets/studying-growth/nautilus.mp4" type="video/mp4" />
+    <video id="naut_video" style="width:100%;min-width:250px;" poster="/assets/studying-growth/nautilus.png">
+      <source src="/assets/studying-growth/nautilus.mp4" type="video/mp4" />
     </video>
     <button class="playbutton" id="naut_video_button" onclick="playPauseNaut()">Play</button>
   </div>
@@ -309,7 +309,7 @@ function playPauseNaut() {
 <p>In this section, we will grow an image of a newt and then graft part of its eye tissue onto its belly. After doing this, we will watch to see whether those cells are able to induce growth in the rest of the eye in that region. We’ve chosen this particular experiment as an homage to <a href="https://en.wikipedia.org/wiki/Hans_Spemann">Hans Spemann</a>,<sup id="fnref:fn2" role="doc-noteref"><a href="#fn:fn2" class="footnote" rel="footnote">3</a></sup> who won the Nobel Prize for Medicine in 1935 for using similar experiments on real newts to discover “the organizer effect in embryonic development.”<sup id="fnref:fn5" role="doc-noteref"><a href="#fn:fn5" class="footnote" rel="footnote">4</a></sup> Spemann’s major insight was that “at every stage of embryonic development, structures already present act as organizers, inducing the emergence of whatever structures are next on the timetable.”<sup id="fnref:fn7" role="doc-noteref"><a href="#fn:fn7" class="footnote" rel="footnote">5</a></sup></p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:90%">
-  <img src="assets/studying-growth/newt_timeline_tall.png" style="width:75%; min-width:320px" />
+  <img src="/assets/studying-growth/newt_timeline_tall.png" style="width:75%; min-width:320px" />
   <!-- <div class="thecap"  style="text-align:left; display:block; margin-left: auto; margin-right: auto; width:100%">
     <b>Reproducing Hans Spemann's newt experiment.</b> In the first 100 frames, we grow an image of a newt using the vanilla NCA model described in <a href="https://distill.pub/2020/growing-ca/">Mordvintsev et al. (2020)</a>. Then, in frame 150 we copy the pixels in the yellow rectangle and paste them onto the newt's belly, as shown by the yellow arrow. Note that these pixels contain the upper half of the newt's eye, but not the lower half. We freeze those cells and let the rest of the cells perform updates for another 25 steps. As you can see in frame 175, this induces the belly cells in the blue rectangle to turn black, completing the lower half of the new eye.
   </div> -->
@@ -321,8 +321,8 @@ function playPauseNaut() {
  -->
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:300px; min-width:250px; display: inline-block; vertical-align: top;text-align:center;">
-    <video id="newt_video" style="width:100%;min-width:250px;" controls="" poster="assets/studying-growth/newt.jpg">
-      <source src="assets/studying-growth/newt.mp4" type="video/mp4" />
+    <video id="newt_video" style="width:100%;min-width:250px;" controls="" poster="/assets/studying-growth/newt.jpg">
+      <source src="/assets/studying-growth/newt.mp4" type="video/mp4" />
     </video>
     <button class="playbutton" id="newt_video_button" onclick="playPauseNewt()">Play</button>
   </div>
@@ -358,7 +358,7 @@ function playPauseNewt() {
 <!-- This process is highly choreographed. For example, in the tail of a tadpole, each cell contains a sort of "suicide capsule" full of particular enzymes. When this capsule is broken at the appointed time, the enzymes are released to destroy the cell from the inside. -->
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
-  <img src="assets/studying-growth/apoptosis.jpg" />
+  <img src="/assets/studying-growth/apoptosis.jpg" />
   <div class="thecap" style="text-align:left; display:block; margin-left: auto; margin-right: auto; width:100%">
   <b>Left.</b> The metamorphosis of a tadpole into a frog is a spectacular example of apoptosis. Soon after the tadpole's tail reaches full size, the frog's back legs begin to grow and the tail rapidly shrinks. In the span of a few months it vanishes entirely. <b>Right.</b> A blue dye that stains only dead cells is applied to a four-year-old chick embryo, revealing apoptosis in the wing and foot buds. These cells are programmed to die at an appointed time in order to shape the wings and feet of the newborn chick (see white circles). Even if these cells are moved to another part of the embryo, they still die at the appointed time. Photo credit: <i>Growth</i> from the LIFE Science Library.
   </div>
@@ -369,15 +369,15 @@ function playPauseNewt() {
 <p>Even in adults, about 10% of the skeleton is replaced every year.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:80%">
-  <img src="assets/studying-growth/grow_bone.png" />
+  <img src="/assets/studying-growth/grow_bone.png" />
 </div>
 
 <p>In this experiment, we trained an NCA model to grow into the shape of a slice of human bone. Since the bone starts its growth in the center of the image, but the center of the target image is empty, the NCA naturally learns a growth pattern that resembles apoptosis. Early in development, a small tan circle forms. The outside edge of this circle expands rapidly outward in a pattern of “bone growth” that would be carried out by <a href="https://en.wikipedia.org/wiki/Osteoblast">osteoblasts</a> in nature. Meanwhile, the inside edge of the circle deteriorates at the same rate in a pattern of “bone resorption” associated with <a href="https://en.wikipedia.org/wiki/Osteoclast">osteoclasts</a> in nature.</p>
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:32%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;padding-right:10px;">
-    <video id="bone_video" style="width:100%;min-width:250px;" poster="assets/studying-growth/bone.png">
-      <source src="assets/studying-growth/bone.mp4" type="video/mp4" />
+    <video id="bone_video" style="width:100%;min-width:250px;" poster="/assets/studying-growth/bone.png">
+      <source src="/assets/studying-growth/bone.mp4" type="video/mp4" />
     </video>
     <button class="playbutton" id="bone_video_button" onclick="playPauseBone()">Play</button>
   </div>
@@ -414,8 +414,8 @@ function playPauseBone() {
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:100%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;padding-right:10px;">
-    <video id="seeds_video" style="width:100%;min-width:250px;" poster="assets/studying-growth/seeds.png">
-      <source src="assets/studying-growth/seeds.mp4" type="video/mp4" />
+    <video id="seeds_video" style="width:100%;min-width:250px;" poster="/assets/studying-growth/seeds.png">
+      <source src="/assets/studying-growth/seeds.mp4" type="video/mp4" />
     </video>
     <button class="playbutton" id="seeds_video_button" onclick="playPauseSeeds()">Play</button>
   </div>
@@ -447,7 +447,7 @@ function playPauseSeeds() {
 <p>One of the themes of this post is that <em>patterns of growth are surprisingly similar</em> across organisms. This hints at the fact that there are principles of growth that transcend biology. These principles can be studied in a computational substrate in a way that gives useful insights about the original biological systems. These insights, we believe, shine a new light on the everyday miracle of growth.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
-  <img src="assets/studying-growth/ferns.jpeg" />
+  <img src="/assets/studying-growth/ferns.jpeg" />
 </div>
 
 <h2 id="footnotes">Footnotes</h2>

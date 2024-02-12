@@ -40,7 +40,7 @@
   <div class="wrap">
 
     <div style="float:left; margin-top:11px; margin-right:10px;">
-    <img src="assets/oak.png" width="50px">
+    <img src="/assets/oak.png" width="50px">
     </div>
 
     <div style="float:left; margin-top:4px; margin-right:10px;">
@@ -78,7 +78,7 @@
         
           
          -->
-        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="/index.html">Home</a>
+        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="/blog">Home</a>
 <!--         <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="../../../../about.html">About me (old)</a> -->
         <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" target="_blank" href="https://people.cs.umu.se/monowar">Profile</a>
       </div>
@@ -124,7 +124,7 @@ pre {
 
 <div class="imgcap_noborder" style="display: inline-block; margin-left: auto; margin-right: auto; width:99.9%;margin-bottom: 0px;">
   <div style="width:225px; display: inline-block; vertical-align: top;text-align:center;padding-right:10px;">
-    <img alt="" src="assets/ncf/compare.png" width="95%" id="compareImage" />
+    <img alt="" src="/assets/ncf/compare.png" width="95%" id="compareImage" />
     <button id="compareButton" onclick="toggleCompare()" class="playbutton">Play</button>
   </div>
 </div>
@@ -144,8 +144,8 @@ pre {
 <p>Now, to put our approach in the proper context, we’re going to quickly review the standard approaches to this kind of problem.</p>
 
 <!-- <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:100%">
-  <img style='width:51.6%; min-width:330px;' src="assets/ncf/hero1.png">
-  <img style='width:47.5%; min-width:330px;' src="assets/ncf/hero2.png">
+  <img style='width:51.6%; min-width:330px;' src="/assets/ncf/hero1.png">
+  <img style='width:47.5%; min-width:330px;' src="/assets/ncf/hero2.png">
   <div class="thecap"  style="text-align:left;padding-left:0px;">
     We solve a simulation problem as though it were an optimization problem. First we compute the action <i>S</i>, then we minimize it. In doing so, we deform the initial random path (yellow) into the path of least action (blue). The final path happens to be a parabola -- the trajectory that a falling object would take in the real world.
   </div>
@@ -153,7 +153,7 @@ pre {
 
 <!-- <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:100%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;padding-right:10px;">
-    <img alt="" src="assets/ncf/hero.png" width="95%" id="lossImage" />
+    <img alt="" src="/assets/ncf/hero.png" width="95%" id="lossImage" />
     <div style="text-align:left;margin-left:10px;margin-right:10px;text-align:center">Caption 2</div>
   </div>
 </div> -->
@@ -175,7 +175,7 @@ pre {
 <span class="n">t_ana</span><span class="p">,</span> <span class="n">x_ana</span> <span class="o">=</span> <span class="n">falling_object_analytical</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
 </code></pre></div></div>
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:300px">
-  <img src="assets/ncf/tutorial_ana.png" />
+  <img src="/assets/ncf/tutorial_ana.png" />
 </div>
 
 <p><strong>The numerical approach.</strong> Not all physics problems have an analytical solution. Some, like the <a href="https://en.wikipedia.org/wiki/Double_pendulum">double pendulum</a> or the <a href="https://en.wikipedia.org/wiki/Three-body_problem">three-body problem</a>, are deterministic but chaotic. In other words, their dynamics are predictable but we can’t know their state at some time in the future without simulating all the intervening states. These we can solve with numerical integration. For the body in a gravitational field, here’s what the numerical approach would look like:</p>
@@ -197,7 +197,7 @@ pre {
 <span class="n">t_num</span><span class="p">,</span> <span class="n">x_num</span> <span class="o">=</span> <span class="n">falling_object_numerical</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
 </code></pre></div></div>
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:300px">
-  <img src="assets/ncf/tutorial_num.png" />
+  <img src="/assets/ncf/tutorial_num.png" />
 </div>
 
 <h3 id="our-approach-action-minimization">Our approach: action minimization</h3>
@@ -271,7 +271,7 @@ S &amp;:= \sum_{i=0}^{N} L({\bf x}, ~ \dot{\bf{x}}, ~ t_i) \Delta t \\
 </code></pre></div></div>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:60%; min-width:330px;">
-  <img src="assets/ncf/tutorial_printout.png" />
+  <img src="/assets/ncf/tutorial_printout.png" />
 </div>
 
 <h3 id="direct-comparison-between-the-numerical-ode-solution-and-our-approach">Direct comparison between the numerical (ODE) solution and our approach</h3>
@@ -279,7 +279,7 @@ S &amp;:= \sum_{i=0}^{N} L({\bf x}, ~ \dot{\bf{x}}, ~ t_i) \Delta t \\
 <p>On the left side of the figure below, we compare the normal approach of ODE integration to our approach of action minimization. As a reminder, the action is the sum, over every point in the path, of kinetic energy \(T\) minus potential energy \(V\). We compute the gradients of this quantity with respect to the path coordinates and then deform the initial path (yellow) into the path of least action (green). This path resolves to a parabola, matching the path obtained via ODE integration. On the right side of the figure, we plot the path’s action \(S\), kinetic energy \(T\), and potential energy \(V\) over the course of optimization. All three quantities asymptote at the respective values of the ODE trajectory.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
-  <img src="assets/ncf/hero.png" />
+  <img src="/assets/ncf/hero.png" />
 </div>
 
 <h3 id="closing-thoughts">Closing thoughts</h3>
@@ -308,12 +308,12 @@ The thing I like most about this little experiment is that it shows how the acti
     path = document.getElementById("compareImage").src
       if (path.split('/').pop() == "compare.png")
       {
-          document.getElementById("compareImage").src = "assets/ncf/compare.gif";
+          document.getElementById("compareImage").src = "/assets/ncf/compare.gif";
           document.getElementById("compareButton").textContent = "Reset";
       }
       else 
       {
-          document.getElementById("compareImage").src = "assets/ncf/compare.png";
+          document.getElementById("compareImage").src = "/assets/ncf/compare.png";
           document.getElementById("compareButton").textContent = "Play";
       }
   }

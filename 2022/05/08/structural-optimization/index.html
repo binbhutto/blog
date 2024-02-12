@@ -40,7 +40,7 @@
   <div class="wrap">
 
     <div style="float:left; margin-top:11px; margin-right:10px;">
-    <img src="assets/oak.png" width="50px">
+    <img src="/assets/oak.png" width="50px">
     </div>
 
     <div style="float:left; margin-top:4px; margin-right:10px;">
@@ -78,7 +78,7 @@
         
           
          -->
-        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="/index.html">Home</a>
+        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="/blog">Home</a>
 <!--         <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="../../../../about.html">About me (old)</a> -->
         <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" target="_blank" href="https://people.cs.umu.se/monowar">Profile</a>
       </div>
@@ -124,8 +124,8 @@ pre {
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:100%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;">
-    <video id="hero_video" style="width:100%;min-width:250px;" poster="assets/structural-optimization/causeway.png">
-      <source src="assets/structural-optimization/causeway.mp4" type="video/mp4" />
+    <video id="hero_video" style="width:100%;min-width:250px;" poster="/assets/structural-optimization/causeway.png">
+      <source src="/assets/structural-optimization/causeway.mp4" type="video/mp4" />
     </video>
     <button class="playbutton" id="hero_video_button" onclick="playPauseHero()">Play</button>
   </div>
@@ -157,8 +157,8 @@ function playPauseHero() {
 Although the tradeoff between cost and aesthetic appeal is as old as time, it has grown sharper in the modern era. Thanks to large-scale, mass-production building techniques, a Walmart in one city now looks exactly like a Walmart in the next.
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; text-align:center; width:100%" >
-    <img src="assets/structural-optimization/reno.png" style="width:49%; min-width:350px">
-    <img src="assets/structural-optimization/amsterdam.png" style="width:49%; min-width:350px">
+    <img src="/assets/structural-optimization/reno.png" style="width:49%; min-width:350px">
+    <img src="/assets/structural-optimization/amsterdam.png" style="width:49%; min-width:350px">
   <div class="thecap" style="text-align:left;"> Google Earth snapshots of the city centers of Reno and Amsterdam. The first, of Reno, is dominated by large rectlinear buildings, roads, and parking lots. The second, of Amsterdam, features a wider variety of shapes and textures.</div>
 </div>
 
@@ -198,7 +198,7 @@ Successfully installed nlopt-2.7.1
 <p>The goal of structural optimization is to place material in a design space so that it rests on some fixed points or “normals” and resists a set of applied forces or <em>loads</em> as efficiently as possible. To see how we might set this up, let’s start with a beam design problem from <a href="https://www.topopt.mek.dtu.dk/-/media/subsites/topopt/apps/dokumenter-og-filer-til-apps/topopt88.pdf?la=da&amp;hash=E80FAB2808804A29FFB181CA05D2EEFECAA86686">Andreassen et al (2010)</a>:</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:50%; min-width:300px;">
-  <img src="assets/structural-optimization/stopt_mbb_setup.png" />
+  <img src="/assets/structural-optimization/stopt_mbb_setup.png" />
 </div>
 
 <p>The large gray rectangle here represents the design space. We are going to enforce symmetry by optimizing half of the beam and then mirroring the result around the left wall. This means that the center of the beam is actually on the left side of the diagram. This is where the load force, denoted by the downwards-pointing arrow, is being applied. There are horizontally fixed points here as well. They represent forces transmitted to this half of the beam from its other half. Meanwhile, the vertically fixed point at the bottom right corner of the design space corresponds to a normal force from some external support, perhaps the top of a wall.</p>
@@ -208,7 +208,7 @@ Successfully installed nlopt-2.7.1
 <p>There are many ways to choose the arrangement of these finite elements. The simplest one is to make them square and organize them on a rectangular grid.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:50%; min-width:300px;">
-  <img src="assets/structural-optimization/stopt_design_domain.png" />
+  <img src="/assets/structural-optimization/stopt_design_domain.png" />
 </div>
 
 <p>In the diagram above, there are 12 elements with four nodes per element and two degrees of freedom (DOFs) per node. The first is horizontal and the second is vertical. The numbering scheme proceeds columnwise from left to right so that the horizontal and vertical displacements of node \(n\) are given by DOFs \(2n-1\) and \(2n\) respectively. As the authors point out, this grid structure is useful because it can be exploited “…in order to reduce the computational effort in the optimization loop…” It also simplifies the code.</p>
@@ -248,7 +248,7 @@ Successfully installed nlopt-2.7.1
 </code></pre></div></div>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%; min-width:300px;">
-  <img src="assets/structural-optimization/setup.png" />
+  <img src="/assets/structural-optimization/setup.png" />
     <div style="text-align:center; display:block; margin-left: auto; margin-right: auto; width:75%">Visualizing the normals and forces in the MBB beam setup. Here the rectangle represents the design area and the colored pixels represent matrix entries (blue = -1, green = 0, and yellow = 1).</div>
 </div>
 
@@ -534,14 +534,14 @@ step 70, loss 3.55e+02, t=9.67s
 step 80, loss 3.44e+02, t=10.79s
 
 Final design space:
-<img src="assets/structural-optimization/mbb1.png" align="left" />
+<img src="/assets/structural-optimization/mbb1.png" align="left" />
 
 
 
 
 
 Final MBB beam design:
-<img src="assets/structural-optimization/mbb2.png" align="left" />
+<img src="/assets/structural-optimization/mbb2.png" align="left" />
 </pre>
 
 <h2 id="optimizing-the-eves-of-a-gazebo-roof">Optimizing the eves of a gazebo roof</h2>
@@ -583,8 +583,8 @@ step 100, loss 2.46e+00, t=347.35s
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:70%">
   <div style="width:100%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;">
-    <video id="eves_video" style="width:100%;min-width:250px;" poster="assets/structural-optimization/eves.png">
-      <source src="assets/structural-optimization/eves.mp4" type="video/mp4" />
+    <video id="eves_video" style="width:100%;min-width:250px;" poster="/assets/structural-optimization/eves.png">
+      <source src="/assets/structural-optimization/eves.mp4" type="video/mp4" />
     </video>
     <button class="playbutton" id="eves_video_button" onclick="playPauseEves()">Play</button>
   </div>
@@ -636,8 +636,8 @@ step 160, loss 5.84e+01, t=253.61s
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:70%">
   <div style="width:100%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;">
-    <video id="causeway_video" style="width:100%;min-width:250px;" poster="assets/structural-optimization/causeway.png">
-      <source src="assets/structural-optimization/causeway.mp4" type="video/mp4" />
+    <video id="causeway_video" style="width:100%;min-width:250px;" poster="/assets/structural-optimization/causeway.png">
+      <source src="/assets/structural-optimization/causeway.mp4" type="video/mp4" />
     </video>
     <button class="playbutton" id="causeway_video_button" onclick="playPauseCauseway()">Play</button>
   </div>
@@ -689,8 +689,8 @@ step 80, loss 3.58e+01, t=104.05s
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:40%">
   <div style="width:100%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;">
-    <video id="points_video" style="width:100%;min-width:250px;" poster="assets/structural-optimization/points.png">
-      <source src="assets/structural-optimization/points.mp4" type="video/mp4" />
+    <video id="points_video" style="width:100%;min-width:250px;" poster="/assets/structural-optimization/points.png">
+      <source src="/assets/structural-optimization/points.mp4" type="video/mp4" />
     </video>
     <button class="playbutton" id="points_video_button" onclick="playPausePoints()">Play</button>
   </div>
@@ -748,8 +748,8 @@ step 100, loss 3.81e+00, t=939.67s
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:50%">
   <div style="width:100%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;">
-    <video id="staircase_video" style="width:100%;min-width:250px;" poster="assets/structural-optimization/staircase.png">
-      <source src="assets/structural-optimization/staircase.mp4" type="video/mp4" />
+    <video id="staircase_video" style="width:100%;min-width:250px;" poster="/assets/structural-optimization/staircase.png">
+      <source src="/assets/structural-optimization/staircase.mp4" type="video/mp4" />
     </video>
     <button class="playbutton" id="staircase_video_button" onclick="playPauseStaircase()">Play</button>
   </div>
@@ -804,8 +804,8 @@ step 160, loss 7.77e+02, t=1135.57s
 </pre>
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:80%">
   <div style="width:100%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;">
-    <video id="building_video" style="width:100%;min-width:250px;" poster="assets/structural-optimization/building.png">
-      <source src="assets/structural-optimization/building.mp4" type="video/mp4" />
+    <video id="building_video" style="width:100%;min-width:250px;" poster="/assets/structural-optimization/building.png">
+      <source src="/assets/structural-optimization/building.mp4" type="video/mp4" />
     </video>
     <button class="playbutton" id="building_video_button" onclick="playPauseBuilding()">Play</button>
   </div>
@@ -831,7 +831,7 @@ function playPauseBuilding() {
 <p>In sci-fi representations of the healthy cities of the future, we often find manmade structures that are well integrated with their natural surroundings. Sometimes we even see a convergence where nature has adapted to the city and the city has adapted to nature. The more decadent cities, on the other hand, tend to define themselves in opposition to the patterns of nature. Their architecture is more blocky and inorganic. Perhaps tools like structural optimization can help us build the healthy cities of the future – and steer clear of the decadent ones.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%; min-width:320px;">
-  <img src="assets/structural-optimization/asgard.jpeg" />
+  <img src="/assets/structural-optimization/asgard.jpeg" />
   <div style="text-align:center; display:block; margin-left: auto; margin-right: auto; width:100%">The city of Asgard from <i>Thor</i></div>
 </div>
 

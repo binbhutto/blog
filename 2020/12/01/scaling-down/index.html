@@ -40,7 +40,7 @@
   <div class="wrap">
 
     <div style="float:left; margin-top:11px; margin-right:10px;">
-    <img src="assets/oak.png" width="50px">
+    <img src="/assets/oak.png" width="50px">
     </div>
 
     <div style="float:left; margin-top:4px; margin-right:10px;">
@@ -78,7 +78,7 @@
         
           
          -->
-        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="/index.html">Home</a>
+        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="/blog">Home</a>
 <!--         <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="../../../../about.html">About me (old)</a> -->
         <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" target="_blank" href="https://people.cs.umu.se/monowar">Profile</a>
       </div>
@@ -101,7 +101,7 @@
   <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:100%; min-width: 300px">
     <div style="min-width:250px; vertical-align: top; text-align:center;">
     <video id="demoDisplay" style="width:100%;min-width:250px;">
-    	<source src="assets/scaling-down/construction.mp4" type="video/mp4" />
+    	<source src="/assets/scaling-down/construction.mp4" type="video/mp4" />
     </video>
     <button class="playbutton" id="demo_button" onclick="playPauseDemo()">Play</button> 
     <div style="text-align:left;">Constructing the MNIST-1D dataset. As with the original MNIST dataset, the task is to learn to classify the digits 0-9. Unlike the MNIST dataset, which consists of 28x28 images, each of these examples is a one-dimensional sequence of points. To generate an example, we begin with 10 digit templates and then randomly pad, translate, add noise, and transform them as shown above.</div>
@@ -140,18 +140,18 @@
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:50%; min-width:300px; display: inline-block; vertical-align: top;">
-    <img src="assets/scaling-down/overview_a.png" style="width:100%" />
+    <img src="/assets/scaling-down/overview_a.png" style="width:100%" />
     <div style="text-align: left;padding-bottom: 20px;padding-right:10px">Constructing the MNIST-1D dataset. Like MNIST, the classifier's objective is to determine which digit is present in the input. Unlike MNIST, each example is a one-dimensional sequence of points. To generate an example, we begin with a digit template and then randomly pad, translate, and transform it.</div>
   </div>
   <div style="width:49.4%; min-width:300px; display: inline-block; vertical-align: top;">
-    <img src="assets/scaling-down/overview_b.png" style="width:100%" />
+    <img src="/assets/scaling-down/overview_b.png" style="width:100%" />
     <div style="text-align:left;">Visualizing the performance of common models on the MNIST-1D dataset. This dataset separates them cleanly according to whether they use nonlinear features (logistic regression vs. MLP) or whether they have spatial inductive biases (MLP vs. CNN). Humans do best of all. Best viewed with zoom.</div>
   </div>
 </div>
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:100%; min-width:300px; display: inline-block; vertical-align: top;">
-    <img src="assets/scaling-down/tsne.png" style="width:100%" />
+    <img src="/assets/scaling-down/tsne.png" style="width:100%" />
   </div>
   <div class="thecap" style="text-align:left;">Visualizing the MNIST and MNIST-1D datasets with tSNE. The well-defined clusters in the MNIST plot indicate that the majority of the examples are separable via a kNN classifier in pixel space. The MNIST-1D plot, meanwhile, reveals a lack of well-defined clusters which suggests that learning a nonlinear representation of the data is much more important to achieve successful classification. Thanks to <a href="https://twitter.com/hippopedoid">Dmitry Kobak</a> for making this plot.</div>
 </div>
@@ -166,20 +166,20 @@
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:100%; min-width:300px; display: inline-block; vertical-align: top;">
-    <img src="assets/scaling-down/lottery_a1.png" style="width:100%" />
+    <img src="/assets/scaling-down/lottery_a1.png" style="width:100%" />
   </div>
   <div style="width:100%; min-width:300px; display: inline-block; vertical-align: top;">
-    <img src="assets/scaling-down/lottery_a2.png" style="width:100%" />
+    <img src="/assets/scaling-down/lottery_a2.png" style="width:100%" />
   </div>
   <div class="thecap" style="text-align:left;">Finding and analyzing lottery tickets. In <b>a-b)</b>, we isolate a "minimum viable example" of the effect. Recent work by <a href="https://arxiv.org/abs/1906.02773">Morcos et al (2019)</a> shows that lottery tickets can transfer between datasets. We wanted to determine whether spatial inductive biases played a role. So we performed a series of experiments: in <b>c)</b> we plot the asymptotic performance of a 92% sparse ticket. In <b>d)</b> we reverse all the 1D signals in the dataset, effectively preserving spatial structure but changing the location of individual datapoints. This is analogous to flipping an image upside down. Under this ablation, the lottery ticket continues to win.</div>
 </div>
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:100%; min-width:300px; display: inline-block; vertical-align: top;">
-    <img src="assets/scaling-down/lottery_b1.png" style="width:100%" />
+    <img src="/assets/scaling-down/lottery_b1.png" style="width:100%" />
   </div>
   <div style="width:100%; min-width:300px; display: inline-block; vertical-align: top;">
-    <img src="assets/scaling-down/lottery_b2.png" style="width:100%" />
+    <img src="/assets/scaling-down/lottery_b2.png" style="width:100%" />
   </div>
     <div class="thecap" style="text-align:left;">Next, in <b>e)</b> we permute the indices of the 1D signal, effectively removing spatial structure from the dataset. This ablation hurts lottery ticket performance significantly more, suggesting that part of the lottery ticket's performance can be attributed to a spatial inductive bias. Finally, in <b>f)</b> we keep the lottery ticket sparsity structure but initialize its weights with a different random seed. Contrary to results reported in <a href="https://arxiv.org/abs/1803.03635">Frankle &amp; Carbin (2019)</a>, we see that our lottery ticket continues to outperform a dense baseline, aligning well with our hypothesis that the lottery ticket mask has a spatial inductive bias. In <b>g)</b>, we verify our hypothesis by measuring how often unmasked weights are adjacent to one another in the first layer of our model. The lottery ticket has many more adjacent weights than chance would predict, implying a local connectivity structure which helps give rise to spatial biases.</div>
 </div>
@@ -189,7 +189,7 @@
 
 <div class="imgcap" id="lottery_masks" style="display: none; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:100%; min-width:300px; display: inline-block; vertical-align: top;">
-    <img src="assets/scaling-down/lottery_mask_vis.png" style="width:100%" />
+    <img src="/assets/scaling-down/lottery_mask_vis.png" style="width:100%" />
   </div>
     <div class="thecap" style="text-align:left;">Visualizing first layer weight masks of random tickets and lottery tickets. For interpretabilty, we have sorted the mask along the hidden layer axis according to the number of adjacent unmasked parameters. This helps reveal a bias towards local connectivity in the lottery ticket masks. Notice how there are many more vertically-adjacent unmasked parameters in the lottery ticket masks. These vertically-adjacent parameters correspond to local connectivity along the input dimension, which in turn biases the sparse model towards data with spatial structure. Best viewed with zoom.</div>
 </div>
@@ -214,7 +214,7 @@
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:50%; min-width:300px; display: inline-block; vertical-align: top;">
-    <img src="assets/scaling-down/deep_double_descent.png" style="width:100%" />
+    <img src="/assets/scaling-down/deep_double_descent.png" style="width:100%" />
     <div class="thecap" style="text-align:left;">Observing deep double descent. MNIST-1D is a good environment for determining how to locate the interpolation threshold of deep models.</div>
   </div>
 </div>
@@ -225,13 +225,13 @@
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:32.4%; min-width:250px; display: inline-block; vertical-align: top;">
-    <img src="assets/scaling-down/metalearn_lr_a.png" style="width:100%" />
+    <img src="/assets/scaling-down/metalearn_lr_a.png" style="width:100%" />
   </div>
   <div style="width:33%; min-width:250px; display: inline-block; vertical-align: top;">
-    <img src="assets/scaling-down/metalearn_lr_b.png" style="width:100%" />
+    <img src="/assets/scaling-down/metalearn_lr_b.png" style="width:100%" />
   </div>
     <div style="width:32%; min-width:250px; display: inline-block; vertical-align: top;">
-    <img src="assets/scaling-down/metalearn_lr_c.png" style="width:100%" />
+    <img src="/assets/scaling-down/metalearn_lr_c.png" style="width:100%" />
   </div>
   <div class="thecap" style="text-align:left;">Metalearning a learning rate: looking at the third plot, the optimal learning rate appears to be 0.6. Unlike many gradient-based metalearning implementations, ours takes seconds to run and occupies a few dozen lines of code. This allows researchers to iterate on novel ideas before scaling.</div>
 </div>
@@ -240,13 +240,13 @@
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:32.7%; min-width:250px; display: inline-block; vertical-align: top;">
-    <img src="assets/scaling-down/metalearn_afunc_a.png" style="width:100%" />
+    <img src="/assets/scaling-down/metalearn_afunc_a.png" style="width:100%" />
   </div>
   <div style="width:32.5%; min-width:250px; display: inline-block; vertical-align: top;">
-    <img src="assets/scaling-down/metalearn_afunc_b.png" style="width:100%" />
+    <img src="/assets/scaling-down/metalearn_afunc_b.png" style="width:100%" />
   </div>
     <div style="width:33%; min-width:250px; display: inline-block; vertical-align: top;">
-    <img src="assets/scaling-down/metalearn_afunc_c.png" style="width:100%" />
+    <img src="/assets/scaling-down/metalearn_afunc_c.png" style="width:100%" />
   </div>
   <div class="thecap" style="text-align:left;">Metalearning an activation function. Starting from an ELU shape, we use gradient-based metalearning to find the optimal activation function of a neural network trained on the MNIST-1D dataset. The activation function itself is parameterized by a second (meta) neural network. Note that the ELU baseline (red) is obscured by the <i>tanh</i> baseline (blue) in the figure above.</div>
 </div>
@@ -259,13 +259,13 @@
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:33%; min-width:250px; display: inline-block; vertical-align: top;">
-    <img src="assets/scaling-down/pooling_a.png" style="width:100%" />
+    <img src="/assets/scaling-down/pooling_a.png" style="width:100%" />
   </div>
   <div style="width:32.3%; min-width:250px; display: inline-block; vertical-align: top;">
-    <img src="assets/scaling-down/pooling_b.png" style="width:100%" />
+    <img src="/assets/scaling-down/pooling_b.png" style="width:100%" />
   </div>
     <div style="width:31.9%; min-width:250px; display: inline-block; vertical-align: top;">
-    <img src="assets/scaling-down/pooling_c.png" style="width:100%" />
+    <img src="/assets/scaling-down/pooling_c.png" style="width:100%" />
   </div>
   <div class="thecap" style="text-align:left;">Benchmarking common pooling methods. We observe that pooling helps performance in low-data regimes and hinders it in high-data regimes. While we do not entirely understand this effect, we hypothesize that pooling is a mediocre architectural prior that is better than nothing in low-data regimes but becomes overly restrictive in high-data regimes.</div>
 </div>

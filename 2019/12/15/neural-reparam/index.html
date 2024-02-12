@@ -40,7 +40,7 @@
   <div class="wrap">
 
     <div style="float:left; margin-top:11px; margin-right:10px;">
-    <img src="assets/oak.png" width="50px">
+    <img src="/assets/oak.png" width="50px">
     </div>
 
     <div style="float:left; margin-top:4px; margin-right:10px;">
@@ -78,7 +78,7 @@
         
           
          -->
-        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="/index.html">Home</a>
+        <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="/blog">Home</a>
 <!--         <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" href="../../../../about.html">About me (old)</a> -->
         <a class="page-link" style="margin-bottom: 0px; padding-bottom:0px;" target="_blank" href="https://people.cs.umu.se/monowar">Profile</a>
       </div>
@@ -99,7 +99,7 @@
 
   <article class="post-content">
   <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:90%">
-    <img alt="" src="assets/neural-reparam/bridge-start.png" width="95%" id="bridgeImage" />
+    <img alt="" src="/assets/neural-reparam/bridge-start.png" width="95%" id="bridgeImage" />
     <button id="bridgeButton" onclick="toggleBridge()" class="playbutton">Play</button>
 	<div class="thecap" style="text-align:left; width:85%;padding-left:22px"><b>Figure 1:</b> Optimizing a bridge structure. In the top frame, optimization happens in the weight space of a CNN. In the next two frames it happens on a finite element grid.</div>
 </div>
@@ -110,12 +110,12 @@
 		path = document.getElementById("bridgeImage").src
 	    if (path.split('/').pop() == "bridge-start.png") 
 	    {
-	        document.getElementById("bridgeImage").src = "assets/neural-reparam/bridge.gif";
+	        document.getElementById("bridgeImage").src = "/assets/neural-reparam/bridge.gif";
 	        document.getElementById("bridgeButton").textContent = "Reset";
 	    }
 	    else 
 	    {
-	        document.getElementById("bridgeImage").src = "assets/neural-reparam/bridge-start.png";
+	        document.getElementById("bridgeImage").src = "/assets/neural-reparam/bridge-start.png";
 	        document.getElementById("bridgeButton").textContent = "Play";
 	    }
 	}
@@ -132,31 +132,31 @@
 <p>In this post we propose using neural networks to reparameterize physics problems. This helps us design better bridges, skyscrapers, and cantilevers while enforcing hard physical constraints. In the figure above, you can see that our approach optimizes more quickly and has a smoother transition from large-scale to small-scale features. In the figure below, you can explore all 116 tasks that we studied.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
-	<img src="assets/neural-reparam/selected-tasks.png" style="width:55%" />
+	<img src="/assets/neural-reparam/selected-tasks.png" style="width:55%" />
 	<div class="thecap" style="text-align:left; display:block; margin-left: auto; margin-right: auto; width:60%"><b>Figure 2:</b> Results from the 116 structural optimization tasks. The scores below each structure measure how much worse the design was than the best overall design.</div>
 
 	<button id="tasksButton1" onclick="toggleTasks1()" class="playbutton" style="display: block; margin-left: auto; margin-right: auto;">Show more tasks</button>
 	<div id="alltasks1" style="display:none">
-		<img src="assets/neural-reparam/tasks/tasks1.png" />
-		<img src="assets/neural-reparam/tasks/tasks2.png" />
-		<img src="assets/neural-reparam/tasks/tasks3.png" />
+		<img src="/assets/neural-reparam/tasks/tasks1.png" />
+		<img src="/assets/neural-reparam/tasks/tasks2.png" />
+		<img src="/assets/neural-reparam/tasks/tasks3.png" />
 		<button id="tasksButton2" onclick="toggleTasks2()" class="playbutton" style="display: block; margin-left: auto; margin-right: auto;">Show even more tasks</button>
 		<div id="alltasks2" style="display:none">
-			<img src="assets/neural-reparam/tasks/tasks4.png" />
-			<img src="assets/neural-reparam/tasks/tasks5.png" />
-			<img src="assets/neural-reparam/tasks/tasks6.png" />
-			<img src="assets/neural-reparam/tasks/tasks7.png" />
-			<img src="assets/neural-reparam/tasks/tasks8.png" />
+			<img src="/assets/neural-reparam/tasks/tasks4.png" />
+			<img src="/assets/neural-reparam/tasks/tasks5.png" />
+			<img src="/assets/neural-reparam/tasks/tasks6.png" />
+			<img src="/assets/neural-reparam/tasks/tasks7.png" />
+			<img src="/assets/neural-reparam/tasks/tasks8.png" />
 			<button id="tasksButton3" onclick="toggleTasks3()" class="playbutton" style="display: block; margin-left: auto; margin-right: auto;">Show even more tasks</button>
 			<div id="alltasks3" style="display:none">
-				<img src="assets/neural-reparam/tasks/tasks9.png" />
-				<img src="assets/neural-reparam/tasks/tasks10.png" />
-				<img src="assets/neural-reparam/tasks/tasks11.png" />
-				<img src="assets/neural-reparam/tasks/tasks12.png" />
-				<img src="assets/neural-reparam/tasks/tasks13.png" />
-				<img src="assets/neural-reparam/tasks/tasks14.png" />
-				<img src="assets/neural-reparam/tasks/tasks15.png" />
-				<img src="assets/neural-reparam/tasks/tasks16.png" />
+				<img src="/assets/neural-reparam/tasks/tasks9.png" />
+				<img src="/assets/neural-reparam/tasks/tasks10.png" />
+				<img src="/assets/neural-reparam/tasks/tasks11.png" />
+				<img src="/assets/neural-reparam/tasks/tasks12.png" />
+				<img src="/assets/neural-reparam/tasks/tasks13.png" />
+				<img src="/assets/neural-reparam/tasks/tasks14.png" />
+				<img src="/assets/neural-reparam/tasks/tasks15.png" />
+				<img src="/assets/neural-reparam/tasks/tasks16.png" />
 			</div>
 		</div>
 	</div>
@@ -171,7 +171,7 @@
 <p><strong>Reparameterization.</strong> And yet, some parameterizations are better than others <em>for solving particular types of problems</em>. This is why reparameterization – the process of switching between parameterizations – is so important. It lets us take advantage of the good properties of two different parameterizations at the same time. For example, when we are editing a photograph in Photoshop, we may edit specific objects while working in a pixel parameterization. Then we may switch to a Fourier basis in order to adjust lighting and saturation. Technically speaking, we’ve just taken advantage of reparameterization.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:60%">
-	<img src="assets/neural-reparam/photoshop.png" />
+	<img src="/assets/neural-reparam/photoshop.png" />
 	<div class="thecap" style="text-align:left; width:100%"><b>Figure 3:</b> A simple example of reparameterization. We might use the pixel image of Baby Yoda (on the left) to make spatially localized edits. Then we might use its spectral decomposition (on the right) to adjust lighting and saturation.</div>
 </div>
 
@@ -193,7 +193,7 @@
 <p><strong><a href="https://dmitryulyanov.github.io/deep_image_prior">The Deep Image Prior</a>.<sup id="fnref:fn1" role="doc-noteref"><a href="#fn:fn1" class="footnote" rel="footnote">1</a></sup></strong> The first study tells us that even untrained networks have fantastic image priors. The authors hammer this point home by showing that it’s possible to perform state-of-the-art denoising, super-resolution, and inpainting on a single image with an untrained network.</p>
 
 <div class="imgcap_noborder" style="display:block; margin-left: auto; margin-right: auto; width:70%">
-	<img src="assets/neural-reparam/deep-prior.png" />
+	<img src="/assets/neural-reparam/deep-prior.png" />
 	<div class="thecap" style="text-align:left; width:100%"><b>Figure 4:</b> Visualization of the Deep Image Prior. Optimizing a single image using the weight space of an untrained CNN gives state of the art super-resolution results.</div>
 </div>
 
@@ -206,7 +206,7 @@
 </ul>
 
 <div class="imgcap_noborder" style="display:block; margin-left: auto; margin-right: auto; width:100%">
-	<img src="assets/neural-reparam/diff-params.png" />
+	<img src="/assets/neural-reparam/diff-params.png" />
 	<div class="thecap" style="text-align:left; display:block; margin-left: auto; margin-right: auto; width:100%"><b>Figure 5:</b> Specific examples of differentiable image parameterizations applied to neural network visualizations and art.</div>
 </div>
 
@@ -227,7 +227,7 @@
 <p>Structural optimization is a computational tool which, in an ironic turn of events, often comes up with more organic-looking structures than human engineers do. These structures are beautiful, lightweight, and extremely strong.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
-	<img src="assets/neural-reparam/autodesk.png" style="width:50%" />
+	<img src="/assets/neural-reparam/autodesk.png" style="width:50%" />
 	<div class="thecap" style="text-align:center; width:100%"><b>Figure 6:</b> Autodesk uses structural optimization to augment the design process.</div>
 </div>
 
@@ -256,14 +256,14 @@
 \end{align}\]
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:70%">
-	<img src="assets/neural-reparam/baseline-schema.png" />
+	<img src="/assets/neural-reparam/baseline-schema.png" />
 	<div class="thecap" style="text-align:left; display: block; margin-left: auto; margin-right: auto; width:90%"><b>Figure 7:</b>  Visualization of structural optimization. Here we are using it to design a bridge.</div>
 </div>
 
 <p><strong>Automatic differentiation.</strong> The coolest thing about our implementation is that it is fully differentiable. In fact, we implemented everything in Autograd and then used automatic differentiation to solve for updates to the parameters. This made our code much simpler than previous approaches (which had implemented reverse-mode differentiation by hand).</p>
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:60%; min-width:250px">
-	<img src="assets/neural-reparam/implicit-diff.png" />
+	<img src="/assets/neural-reparam/implicit-diff.png" />
 	<div class="thecap" style="text-align:left; width:100%"><b>Figure 8:</b> Instead of differentiating directly through the root finder, we can use the <a href="https://en.wikipedia.org/wiki/Implicit_function_theorem">implicit function theorem</a> to <a href="https://link.springer.com/article/10.1023/A:1016051717120">differentiate through the optimal point</a>.</div>
 </div>
 
@@ -272,7 +272,7 @@
 <p><strong>Reparameterizing the problem.</strong> Next, we built a CNN image generator in Keras and used it to reparameterize the grid of logits. The entire process, from the neural network forward pass to the constraint functions to the physics simulation, reduced to a single forward pass:</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:70%">
-	<img src="assets/neural-reparam/our-schema.png" />
+	<img src="/assets/neural-reparam/our-schema.png" />
 	<div class="thecap" style="text-align:left; width:100%"><b>Figure 9:</b> Reparameterizing structural optimization. We implement the forward pass as a TensorFlow graph and compute gradients via automatic differentiation.</div>
 </div>
 
@@ -281,7 +281,7 @@
 <p>In order to compare our method to baselines, we developed a suite of 116 structural optimization tasks. In designing these tasks, our goal was to create a distribution of diverse, well-studied problems with real-world significance. We started with a selection of problems from (Valdez et al. 2017)<sup id="fnref:fn8" role="doc-noteref"><a href="#fn:fn8" class="footnote" rel="footnote">8</a></sup> and (Sokol 2011).<sup id="fnref:fn9" role="doc-noteref"><a href="#fn:fn9" class="footnote" rel="footnote">9</a></sup> Most of these problems were simple beams with only a few forces, so we hand-designed additional tasks reflecting real-world designs such as bridges, towers, and trees.</p>
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:70%; min-width:280px">
-	<img src="assets/neural-reparam/quant-results.png" />
+	<img src="/assets/neural-reparam/quant-results.png" />
 	<div class="thecap" style="text-align:left; width:100%"><b>Figure 10:</b> Neural reparameterization improves structural optimization, especially for large problems.</div>
 </div>
 
@@ -291,7 +291,7 @@
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:90%">
     <button id="buildingButton" onclick="toggleBuilding()" class="playbutton">Play</button>
-    <img alt="" src="assets/neural-reparam/building.png" width="95%" id="buildingImage" />
+    <img alt="" src="/assets/neural-reparam/building.png" width="95%" id="buildingImage" />
 	<div class="thecap" style="text-align:left; width:90%;padding-left:22px"><b>Figure 11:</b> Optimizing a multistory building. In the first frame, optimization happens in the weight space of a CNN. In the next two frames it happens on a finite element grid. Structures 2 and 3 are 7% and 54% worse.</div>
 </div>
 
@@ -301,12 +301,12 @@
 		path = document.getElementById("buildingImage").src
 	    if (path.split('/').pop() == "building.png") 
 	    {
-	        document.getElementById("buildingImage").src = "assets/neural-reparam/building.gif";
+	        document.getElementById("buildingImage").src = "/assets/neural-reparam/building.gif";
 	        document.getElementById("buildingButton").textContent = "Reset";
 	    }
 	    else 
 	    {
-	        document.getElementById("buildingImage").src = "assets/neural-reparam/building.png";
+	        document.getElementById("buildingImage").src = "/assets/neural-reparam/building.png";
 	        document.getElementById("buildingButton").textContent = "Play";
 	    }
 	}
@@ -319,7 +319,7 @@
 <p><strong>Parameterization.</strong> A more general theme of this project is that <em>parameterization matters much more than you might expect.</em> We see this again and again. The most fundamental advances in deep learning – convolutional filters, forget gates, residual connections, and self-attention – should be thought of as advances in parameterization.</p>
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:70%">
-	<img src="assets/neural-reparam/elegans-connectome.png" />
+	<img src="/assets/neural-reparam/elegans-connectome.png" />
 	<div class="thecap" style="text-align:left; width:100%"><b>Figure 12:</b> Parameterization is important in biological systems as well. What sorts of priors might the <a href="https://wormwiring.org/">C. elegans connectome</a> encode?</div>
 </div>
 

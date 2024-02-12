@@ -7,11 +7,11 @@
     <title>Hamiltonian Neural Networks</title>
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="A blog by Monowar Bhuyan">
-    <link rel="canonical" href="https://binbhutto.github.io/blog/2019/05/15/hamiltonian-nns/">
+    <link rel="canonical" href="https://binbhutto.github.io/2019/05/15/hamiltonian-nns/">
     <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Cyber Analytics and Learning posts" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/blog/assets/main.css">
+    <link rel="stylesheet" href="assets/main.css">
 
     <!-- Google Analytics -->
     <script>
@@ -40,17 +40,17 @@
   <div class="wrap">
 
     <div style="float:left; margin-top:11px; margin-right:10px;">
-    <img src="/assets/oak.png" width="50px">
+    <img src="assets/oak.png" width="50px">
     </div>
 
     <div style="float:left; margin-top:4px; margin-right:10px;">
-      <a class="site-title" style="padding-top:0px; padding-bottom:0px;" href="/blog/ ">Cyber Analytics and Learning</a>
+      <a class="site-title" style="padding-top:0px; padding-bottom:0px;" href="/ ">Cyber Analytics and Learning</a>
       <!--<p style="font-size:14px;">‎‎ㅤㅤㅤ&zwnj;</p> This is very hacky but I couldn't find a better way -->
       <br>
       <p style="padding-bottom:6px; font-size:15px;font-weight: 300;">A blog by Monowar Bhuyan</p>
     </div>
 
-<!--     <a class="site-title" style="padding-top:8px; font-size:28px" href="/blog/ ">Cyber Analytics and Learning</a> -->
+<!--     <a class="site-title" style="padding-top:8px; font-size:28px" href="/ ">Cyber Analytics and Learning</a> -->
     
     <nav class="site-nav">
       <a href="#" class="menu-icon">
@@ -66,9 +66,9 @@
       </a>
 
       <div class="trigger" style="margin-bottom:0px; padding-top:10px; font-size:13px;font-weight: 300;">
-<!--         <a class="page-link" href="/blog/ ">Home</a> -->
+<!--         <a class="page-link" href="/ ">Home</a> -->
 <!--         
-          <a class="page-link" href="/blog/assets/2017-12-23-neurips17/">A Review of NeurIPS</a>
+          <a class="page-link" href="/assets/2017-12-23-neurips17/">A Review of NeurIPS</a>
         
           
         
@@ -99,7 +99,7 @@
 
   <article class="post-content">
   <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
-	<img src="/assets/hamiltonian-nns/overall-idea.png" />
+	<img src="assets/hamiltonian-nns/overall-idea.png" />
 	<div class="thecap" style="text-align:left; display:block; margin-left: auto; margin-right: auto; width:100%"><b>Figure 1:</b> Instead of crafting a Hamiltonian by hand, we parameterize it with a neural network and then learn it directly from data. The variables <b>q</b> and <b>p</b> correspond to position and momentum coordinates. As there is no friction, the baseline's inward spiral is due to model errors. By comparison, the Hamiltonian Neural Network learns to exactly conserve an energy-like quantity.</div>
 </div>
 
@@ -125,7 +125,7 @@
 <p>It turns out we can. Drawing inspiration from Hamiltonian mechanics, a branch of physics concerned with conservation laws and invariances, we define Hamiltonian Neural Networks, or HNNs. By construction, these models learn conservation laws from data. We’ll show that they have some major advantages over regular neural networks on a variety of physics problems.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%;">
-    <img alt="" src="/assets/hamiltonian-nns/orbits-compare.png" width="70%" id="orbitImage" /><br />
+    <img alt="" src="assets/hamiltonian-nns/orbits-compare.png" width="70%" id="orbitImage" /><br />
     <button id="orbitButton" onclick="toggleOrbits()" class="playbutton">Play</button>
 	<div class="thecap" style="text-align:left"><b>Figure 3:</b> Two bodies interact via a gravitational force. The dynamics of the baseline model do not conserve total energy and quickly diverge from ground truth. Meanwhile, the HNN learns to conserve a quantity that is close to total energy. This makes its predicted trajectories more stable.</div>
 </div>
@@ -136,12 +136,12 @@
 		path = document.getElementById("orbitImage").src
 	    if (path.split('/').pop() == "orbits-compare.png") 
 	    {
-	        document.getElementById("orbitImage").src = "/assets/hamiltonian-nns/orbits-compare.gif";
+	        document.getElementById("orbitImage").src = "assets/hamiltonian-nns/orbits-compare.gif";
 	        document.getElementById("orbitButton").textContent = "Reset";
 	    }
 	    else 
 	    {
-	        document.getElementById("orbitImage").src = "/assets/hamiltonian-nns/orbits-compare.png";
+	        document.getElementById("orbitImage").src = "assets/hamiltonian-nns/orbits-compare.png";
 	        document.getElementById("orbitButton").textContent = "Play";
 	    }
 	}
@@ -198,7 +198,7 @@
 <p>Now this expression is beginning to look like the \(\mathcal{L_2}\) loss function used in supervised learning. The \(\mathcal{L_2}\) loss term usually takes the form \(\big \Vert y - f_{\theta}(x) \big \Vert^2 \) where \(x\) is the input and \(y\) is the target. The key difference is that here we are minimizing something of the form \( \big \Vert y - \frac{\partial f_{\theta}(x)}{\partial x} \big \Vert^2 \). In other words, we are optimizing the gradient of a neural network.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
-	<img src="/assets/hamiltonian-nns/overall-schema.png" />
+	<img src="assets/hamiltonian-nns/overall-schema.png" />
 	<div class="thecap" style="text-align:left"><b>Figure 4:</b> Schema of the Baseline and HNN models. The Baseline NN in the figure above represents the supervised learning approach to modeling the time derivatives of (<b>q</b>, <b>p</b>). In both cases, the inputs are the coordinates of the system and the targets are their time derivatives.</div>
 </div>
 
@@ -207,7 +207,7 @@
 <p><strong>Results on simple tasks.</strong> We trained an HNN and a baseline model on three simple physics tasks. You can explore the setup and results for each of these tasks in Figure 5. Generally speaking, the HNN trained about as easily as the baseline model and produced better results. In order to predict dynamics, we integrated our models using <code class="language-plaintext highlighter-rouge">scipy.integrate.solve_ivp</code> and set the error tolerance to \(10^{-9}\)</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%;text-align:center;">
-	<img alt="" src="/assets/hamiltonian-nns/blog-summary-spring.png" width="100%" id="simpleImage" /><br />
+	<img alt="" src="assets/hamiltonian-nns/blog-summary-spring.png" width="100%" id="simpleImage" /><br />
 	<button id="simpleButton" onclick="toggleSimple()" class="playbutton">Next task</button>
 	<div class="thecap" style="text-align:left"><b>Figure 5:</b>
 		<span id="simpleImageCap">In Task 1, we trained the HNN on data from a simulated mass-spring system. The dynamics of this system were perfectly linear, making this the simplest system we considered. Notice how the HNN learns to conserve a quantity very similar to the total energy of the system.</span>
@@ -220,19 +220,19 @@
 		path = document.getElementById("simpleImage").src
 	    if (path.split('/').pop() == "blog-summary-spring.png") 
 	    {
-	        document.getElementById("simpleImage").src = "/assets/hamiltonian-nns/blog-summary-pend.png";
+	        document.getElementById("simpleImage").src = "assets/hamiltonian-nns/blog-summary-pend.png";
 	        document.getElementById("simpleButton").textContent = "Next task";
 	        document.getElementById("simpleImageCap").textContent = "In Task 2, we trained the HNN on data from a simulated pendulum. The dynamics of this system were nonlinear, making the task slightly more difficult than Task 1. Once again, the HNN outperformed the baseline model. In this case, the baseline diverges to a higher energy rather than a lower energy level (as in Task 1).";
 	    }
 	    else if (path.split('/').pop() == "blog-summary-pend.png") 
 	    {
-	    	document.getElementById("simpleImage").src = "/assets/hamiltonian-nns/blog-summary-real.png";
+	    	document.getElementById("simpleImage").src = "assets/hamiltonian-nns/blog-summary-real.png";
 	    	document.getElementById("simpleButton").textContent = "Reset";
 	    	document.getElementById("simpleImageCap").textContent = "In Task 3, we trained the HNN on data from a real pendulum. The dynamics of this system were noisy and nonlinear, making the task even more difficult. The HNN outperformed the baseline model, but it's interesting to note that the true energy of the system was not perfectly conserved due to friction, and the HNN was not able to account for this effect.";
 	    }
 	    else 
 	    {
-	        document.getElementById("simpleImage").src = "/assets/hamiltonian-nns/blog-summary-spring.png";
+	        document.getElementById("simpleImage").src = "assets/hamiltonian-nns/blog-summary-spring.png";
 	        document.getElementById("simpleButton").textContent = "Next task";
 	        document.getElementById("simpleImageCap").textContent = "In Task 1, we trained the HNN on data from a simulated mass-spring system. The dynamics of this system were perfectly linear, making this the simplest system we considered. Notice how the HNN learns to conserve a quantity very similar to the total energy of the system.";
 	    }
@@ -246,8 +246,8 @@
 <p>Having established baselines on a few simple tasks, our next step was to tackle a larger system involving more than one pair of \((\mathbf{q},\mathbf{p})\) coordinates. One well-studied problem that fits this description is the \(N\)-body problem, which requires \(2N\) pairs, where \(N\) is the number of bodies.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
-	<img src="/assets/hamiltonian-nns/orbit-results.png" style="width:49%;" />
-	<img src="/assets/hamiltonian-nns/3body-results.png" style="width:49%; padding-left:1%" />
+	<img src="assets/hamiltonian-nns/orbit-results.png" style="width:49%;" />
+	<img src="assets/hamiltonian-nns/3body-results.png" style="width:49%; padding-left:1%" />
 	<div class="thecap" style="text-align:left"><b>Figure 6: (Left)</b> Two bodies interact via a gravitational force. The dynamics of the baseline model do not conserve total energy and quickly diverge from ground truth. The HNN, meanwhile, approximately conserves total energy and accrues a small amount of error after one full orbit. <b>(Right)</b> Three bodies interact via a gravitational force. This system is chaotic and has a large dynamic range. While neither of our models achieves good performance on this dataset, the HNN substantially outperforms the baseline and shows promising generalization.</div>
 </div>
 
@@ -260,7 +260,7 @@
 <p><strong>The Pixel Pendulum.</strong> First, we constructed a dataset of pixel observations of a pendulum by stepping through the OpenAI Gym <code class="language-plaintext highlighter-rouge">Pendulum-v0</code> environment. Then we combined an autoencoder with an HNN to learn the dynamics of the system. The autoencoder would consume two adjacent frames (for velocity information) and then pass its latent codes to the HNN, which used them just as it would a set of \((\mathbf{q},\mathbf{p})\) coordinates. We trained the entire model end-to-end and found that it outperformed the baseline by a significant margin. To our knowledge this is the first instance of a Hamiltonian learned directly from pixel data!</p>
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:100%;text-align: center;">
-    <img alt="" src="/assets/hamiltonian-nns/pend-compare.png" width="60%" id="pendImage" /><br />
+    <img alt="" src="assets/hamiltonian-nns/pend-compare.png" width="60%" id="pendImage" /><br />
     <button id="pendButton" onclick="togglePend()" class="playbutton">Play</button>
 	<div class="thecap" style="text-align:left"><b>Figure 7:</b> Predicting the dynamics of the pixel pendulum. We train an HNN and its baseline to predict dynamics in the latent space of an autoencoder. Then we project the latent trajectory back to pixel space for visualization. The baseline model rapidly decays to lower energy states whereas the HNN remains close to ground truth even after hundreds of frames.</div>
 </div>
@@ -271,12 +271,12 @@
 		path = document.getElementById("pendImage").src
 	    if (path.split('/').pop() == "pend-compare.png") 
 	    {
-	        document.getElementById("pendImage").src = "/assets/hamiltonian-nns/pend-compare.gif";
+	        document.getElementById("pendImage").src = "assets/hamiltonian-nns/pend-compare.gif";
 	        document.getElementById("pendButton").textContent = "Reset";
 	    }
 	    else 
 	    {
-	        document.getElementById("pendImage").src = "/assets/hamiltonian-nns/pend-compare.png";
+	        document.getElementById("pendImage").src = "assets/hamiltonian-nns/pend-compare.png";
 	        document.getElementById("pendButton").textContent = "Play";
 	    }
 	}
@@ -291,8 +291,8 @@
 <p><strong>Adding and removing energy.</strong> So far, we have only integrated the symplectic gradient of the Hamiltonian. This keeps the scalar, energy-like value of \(\mathcal{H}(\mathbf{q},\mathbf{p})\) fixed. But we could just as easily follow the regular gradient of the Hamiltonian in order to increase or decrease \(\mathcal{H}\). We can even alternate between changing and conserving the energy-like value. Figure 8 shows how we can use this process to “bump” the pendulum to a higher energy level. We could imagine using this technique to answer counterfactual questions e.g. “What would have happened if we added 1 Joule of energy?””</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
-	<img src="/assets/hamiltonian-nns/addenergy-static.png" style="width:60%" />
-    <img alt="" src="/assets/hamiltonian-nns/addenergy.png" style="width:25%;padding-bottom:35px" id="energyImage" /><br />
+	<img src="assets/hamiltonian-nns/addenergy-static.png" style="width:60%" />
+    <img alt="" src="assets/hamiltonian-nns/addenergy.png" style="width:25%;padding-bottom:35px" id="energyImage" /><br />
     <button id="energyButton" onclick="toggleEnergy()" class="playbutton">Play</button>
 	<div class="thecap" style="text-align:left"><b>Figure 8:</b> Visualizing integration in the latent space of the Pixel Pendulum model. We alternate between integrating the symplectic gradient at low energy (blue circle), the regular gradient (purple line), and then the symplectic gradient at higher energy (red circle).</div>
 </div>
@@ -303,12 +303,12 @@
 		path = document.getElementById("energyImage").src
 	    if (path.split('/').pop() == "addenergy.png") 
 	    {
-	        document.getElementById("energyImage").src = "/assets/hamiltonian-nns/addenergy.gif";
+	        document.getElementById("energyImage").src = "assets/hamiltonian-nns/addenergy.gif";
 	        document.getElementById("energyButton").textContent = "Reset";
 	    }
 	    else 
 	    {
-	        document.getElementById("energyImage").src = "/assets/hamiltonian-nns/addenergy.png";
+	        document.getElementById("energyImage").src = "assets/hamiltonian-nns/addenergy.png";
 	        document.getElementById("energyButton").textContent = "Play";
 	    }
 	}
@@ -325,7 +325,7 @@
 <p>Thanks to the Google AI Residency for providing me with all the mentorship and resources that a young researcher could dare to dream of. Thanks to Nic Ford, Trevor Gale, Rapha Gontijo Lopes, Keren Gu, Ben Caine, Mark Woodward, Stephan Hoyer, and Jascha Sohl-Dickstein for insightful conversations and advice. Thanks to Jason Yosinski and Misko Dzamba for being awesome coauthors and for the informal conversations that sparked this work.</p>
 
 <!-- <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:50%">
-	<img style="width:50%" src="/assets/hamiltonian-nns/cat.png">
+	<img style="width:50%" src="assets/hamiltonian-nns/cat.png">
 		<div class="thecap" style="text-align:left"><b>Figure 9:</b> Thanks To Misko's cat, Daisy, for being the most chaotic physical system of all the ones we considered.</div>
 </div> -->
 

@@ -7,11 +7,11 @@
     <title>Piecewise-constant Neural ODEs</title>
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="A blog by Monowar Bhuyan">
-    <link rel="canonical" href="https://binbhutto.github.io/blog/2021/06/11/piecewise-nodes/">
+    <link rel="canonical" href="https://binbhutto.github.io/2021/06/11/piecewise-nodes/">
     <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Cyber Analytics and Learning posts" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/blog/assets/main.css">
+    <link rel="stylesheet" href="assets/main.css">
 
     <!-- Google Analytics -->
     <script>
@@ -40,17 +40,17 @@
   <div class="wrap">
 
     <div style="float:left; margin-top:11px; margin-right:10px;">
-    <img src="/assets/oak.png" width="50px">
+    <img src="assets/oak.png" width="50px">
     </div>
 
     <div style="float:left; margin-top:4px; margin-right:10px;">
-      <a class="site-title" style="padding-top:0px; padding-bottom:0px;" href="/blog/ ">Cyber Analytics and Learning</a>
+      <a class="site-title" style="padding-top:0px; padding-bottom:0px;" href="/ ">Cyber Analytics and Learning</a>
       <!--<p style="font-size:14px;">‎‎ㅤㅤㅤ&zwnj;</p> This is very hacky but I couldn't find a better way -->
       <br>
       <p style="padding-bottom:6px; font-size:15px;font-weight: 300;">A blog by Monowar Bhuyan</p>
     </div>
 
-<!--     <a class="site-title" style="padding-top:8px; font-size:28px" href="/blog/ ">Cyber Analytics and Learning</a> -->
+<!--     <a class="site-title" style="padding-top:8px; font-size:28px" href="/ ">Cyber Analytics and Learning</a> -->
     
     <nav class="site-nav">
       <a href="#" class="menu-icon">
@@ -66,9 +66,9 @@
       </a>
 
       <div class="trigger" style="margin-bottom:0px; padding-top:10px; font-size:13px;font-weight: 300;">
-<!--         <a class="page-link" href="/blog/ ">Home</a> -->
+<!--         <a class="page-link" href="/ ">Home</a> -->
 <!--         
-          <a class="page-link" href="/blog/assets/2017-12-23-neurips17/">A Review of NeurIPS</a>
+          <a class="page-link" href="/assets/2017-12-23-neurips17/">A Review of NeurIPS</a>
         
           
         
@@ -101,21 +101,21 @@
   <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:32%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;padding-right:10px;">
     <video id="video_sim" style="width:100%;min-width:250px;">
-    	<source src="/assets/piecewise-nodes/video_simulator_2.mp4" type="video/mp4" />
+    	<source src="assets/piecewise-nodes/video_simulator_2.mp4" type="video/mp4" />
     </video>
     <button class="playbutton" id="video_sim_button" onclick="playPauseSim()">Play</button> 
     <div style="text-align: left;margin-left:10px;margin-right:10px;">Using model-based planning to play billiards. The goal is to impart the tan cue ball with an initial velocity so as to move the blue ball to the black target.</div>
   </div>
   <div style="width:32%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;padding-right:10px;">
     <video id="video_base" style="width:100%;min-width:250px;">
-    	<source src="/assets/piecewise-nodes/video_base_2.mp4" type="video/mp4" />
+    	<source src="assets/piecewise-nodes/video_base_2.mp4" type="video/mp4" />
     </video>
     <button class="playbutton" id="video_base_button" onclick="playPauseBase()">Play</button> 
     <div style="text-align:left;margin-left:10px;margin-right:10px;">A baseline ODE-RNN trained on billiards dynamics can also be used for model-based planning. It's inefficient because it has to "tick" at a constant rate.</div>
   </div>
    <div style="width:32%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;">
     <video id="video_ours" style="width:100%;min-width:250px;">
-    	<source src="/assets/piecewise-nodes/video_ours_2.mp4" type="video/mp4" />
+    	<source src="assets/piecewise-nodes/video_ours_2.mp4" type="video/mp4" />
     </video>
     <button class="playbutton" id="video_ours_button" onclick="playPauseOurs()">Play</button> 
     <div style="text-align:left;margin-left:10px;margin-right:10px;">By contrast, our model, trained on the same task, can perform planning in many fewer steps by jumping over spans of time where motion is predictable.</div>
@@ -176,7 +176,7 @@ function playPauseOurs() {
 <p>In this post, I am going to introduce a special case of Neural ODEs that my research group has been experimenting with recently. The core idea is to restrict the hidden state of a Neural ODE so that it has locally-linear dynamics. The benefit of such a model is that it can be integrated <em>exactly</em> using Euler integration, and it can also be integrated <em>adaptively</em> because we allow these locally-linear dynamics to extend over variable-sized durations of time. Like RNNS and Neural ODEs, our model uses a hidden state \(h\) to summarize knowledge about the world at a given point in time. Also, it performs updates on this hidden state using cell updates (eg. with vanilla, LSTM, or GRU cells). But our model differs from existing models in that the amount of simulation time that occurs between cell updates is not fixed. Rather, it changes according to the variable \(\Delta t\), which is itself predicted.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%; min-width: 300px">
-  <img src="/assets/piecewise-nodes/hero.png" style="width:100%" />
+  <img src="assets/piecewise-nodes/hero.png" style="width:100%" />
 </div>
 
 <p>Our model also predicts a <em>hidden state velocity</em>, \(\dot h\), at each cell update; this enables us to evolve the hidden state dynamics continuously over time according to \(h(t+\Delta t) = h + \dot h \Delta t\). In other words, the hidden state velocity allows us to parameterize <em>the locally-linear dynamics of the hidden state</em>. Thus when our model needs to simulate long spans of homogeneous change (eg, a billiard ball undergoing linear motion), it can do so with a single cell update.</p>
@@ -186,14 +186,14 @@ function playPauseOurs() {
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
     <div style="width:32%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;padding-right:10px;">
     <video id="video_sim2" style="width:100%;min-width:250px;">
-      <source src="/assets/piecewise-nodes/video_sim_2.mp4" type="video/mp4" />
+      <source src="assets/piecewise-nodes/video_sim_2.mp4" type="video/mp4" />
     </video>
     <button class="playbutton" id="video_sim2_button" onclick="playPauseSim2()">Play</button> 
     <div style="text-align: left;margin-left:10px;margin-right:10px;">This video will give you a sense of the underlying temporal resolution of the billiards dataset on which we trained the model.</div>
   </div>
   <div style="width:32%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;">
     <video id="video_interp" style="width:100%;min-width:250px;">
-    	<source src="/assets/piecewise-nodes/video_interp_2.mp4" type="video/mp4" />
+    	<source src="assets/piecewise-nodes/video_interp_2.mp4" type="video/mp4" />
     </video>
     <button class="playbutton" id="video_interp_button" onclick="playPauseInterp()">Play</button> 
     <div style="text-align:left;margin-left:10px;">This video shows how we can use our model to generate simulations at a higher temporal resolution than that of the original simulator. 
@@ -268,7 +268,7 @@ function playPauseInterp() {
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
     <div style="width:100%; min-width:250px; display: inline-block; vertical-align: top;text-align:center;padding-right:10px;">
     <video id="video_pool" style="width:100%;min-width:250px;">
-      <source src="/assets/piecewise-nodes/pool_shot.mp4" type="video/mp4" />
+      <source src="assets/piecewise-nodes/pool_shot.mp4" type="video/mp4" />
     </video>
     <button class="playbutton" id="video_pool_button" onclick="playPausePool()">Play</button> 
     <div style="text-align: left;">A professional pool player making a remarkable shot. We'll never know exactly what was going through his head when he did this, but we can say at the very least he was planning over a sequence of collisions. An RNN, by contrast, would focus most of its compute on simulating the linear motion of the ball in between collisions.</div>
@@ -301,7 +301,7 @@ function playPausePool() {
 <p><strong>Learning linear motion.</strong> To show this more clearly, we conducted a simple toy experiment. We created a toy dataset of perfectly linear motion and checked to see whether our model would learn to summarize the whole thing in one step. As the figure below shows, it learned to do exactly that. Meanwhile, the regular RNN had to summarize the same motion in a series of tiny steps.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%; min-width: 300px">
-  <img src="/assets/piecewise-nodes/lines.png" style="width:100%" />
+  <img src="assets/piecewise-nodes/lines.png" style="width:100%" />
 </div>
 
 <p><strong>Learning a change of basis.</strong> Physicists will tell you that the way a system changes over time is only linear with respect to a particular coordinate system. For example, an object undergoing constant circular motion has nonlinear dynamics when we use Cartesian coordinates, but linear dynamics when we use polar coordinates. That’s why physicists use different coordinates to describe different physical systems: <u><i>all else being equal, the best coordinates are those that are maximally linear with respect to the dynamics.</i></u></p>
@@ -309,13 +309,13 @@ function playPausePool() {
 <p>Since our model forces dynamics to be linear in latent space, the encoder and decoder layers naturally learn to transform input data into a basis where the dynamics are linear. For example, when we train our model on a dataset of circular trajectories represented in Cartesian coordinates, it learns to summarize such trajectories in a single step. This implies that our model has learned a Cartesian-to-Polar change of basis.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%; min-width: 300px">
-  <img src="/assets/piecewise-nodes/circles.png" style="width:100%" />
+  <img src="assets/piecewise-nodes/circles.png" style="width:100%" />
 </div>
 
 <p><strong>Learning from pixel videos.</strong> Our model can learn more complicated change-of-basis functions as well. Later in the paper, we trained our model on pixel observations of two billiards balls. The pixel “coordinate system” is extremely nonlinear with respect to the linear motion of the two balls. And yet our model was able to predict the dynamics of the system far more effectively than the baseline model, while using three times fewer “ticks”. The fact that our model could make jumpy predictions on this dataset implies that it found a basis where the billiards dynamics were linear for significant durations of time – something that is strictly impossible in a pixel basis.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%; min-width: 300px">
-  <img src="/assets/piecewise-nodes/pixel_billiards.png" style="width:100%" />
+  <img src="assets/piecewise-nodes/pixel_billiards.png" style="width:100%" />
 </div>
 
 <p>In fact, we suspect that forcing dynamics to be linear in latent space actually biased our model to find linear dynamics. We hypothesize that the baseline model performed worse on this task because it had no such inductive bias. This is generally a good inductive bias to build into a model because most real-world dynamics can be approximated with piecewise-linear functions</p>
@@ -348,7 +348,7 @@ function playPausePool() {
 </table>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%; min-width: 300px">
-  <img src="/assets/piecewise-nodes/planning2d.png" style="width:45%" />
+  <img src="assets/piecewise-nodes/planning2d.png" style="width:45%" />
 </div>
 
 <!-- Quite a few researchers have wrestled with the fact that RNNs tick through time at a uniform rate. So there are a number of recent projects that aim to make RNNs more temporally abstract. Our work is related, and hopefully complementary, to these approaches. -->

@@ -7,11 +7,11 @@
     <title>Optimizing a Wing Inside a Fluid Simulation</title>
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="A blog by Monowar Bhuyan">
-    <link rel="canonical" href="https://binbhutto.github.io/blog/2020/10/14/optimizing-a-wing/">
+    <link rel="canonical" href="https://binbhutto.github.io/2020/10/14/optimizing-a-wing/">
     <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Cyber Analytics and Learning posts" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/blog/assets/main.css">
+    <link rel="stylesheet" href="assets/main.css">
 
     <!-- Google Analytics -->
     <script>
@@ -40,17 +40,17 @@
   <div class="wrap">
 
     <div style="float:left; margin-top:11px; margin-right:10px;">
-    <img src="/assets/oak.png" width="50px">
+    <img src="assets/oak.png" width="50px">
     </div>
 
     <div style="float:left; margin-top:4px; margin-right:10px;">
-      <a class="site-title" style="padding-top:0px; padding-bottom:0px;" href="/blog/ ">Cyber Analytics and Learning</a>
+      <a class="site-title" style="padding-top:0px; padding-bottom:0px;" href="/ ">Cyber Analytics and Learning</a>
       <!--<p style="font-size:14px;">‎‎ㅤㅤㅤ&zwnj;</p> This is very hacky but I couldn't find a better way -->
       <br>
       <p style="padding-bottom:6px; font-size:15px;font-weight: 300;">A blog by Monowar Bhuyan</p>
     </div>
 
-<!--     <a class="site-title" style="padding-top:8px; font-size:28px" href="/blog/ ">Cyber Analytics and Learning</a> -->
+<!--     <a class="site-title" style="padding-top:8px; font-size:28px" href="/ ">Cyber Analytics and Learning</a> -->
     
     <nav class="site-nav">
       <a href="#" class="menu-icon">
@@ -66,9 +66,9 @@
       </a>
 
       <div class="trigger" style="margin-bottom:0px; padding-top:10px; font-size:13px;font-weight: 300;">
-<!--         <a class="page-link" href="/blog/ ">Home</a> -->
+<!--         <a class="page-link" href="/ ">Home</a> -->
 <!--         
-          <a class="page-link" href="/blog/assets/2017-12-23-neurips17/">A Review of NeurIPS</a>
+          <a class="page-link" href="/assets/2017-12-23-neurips17/">A Review of NeurIPS</a>
         
           
         
@@ -101,8 +101,8 @@
   <p style="font-size: 20px;text-align: center;color: #999;"><i>(My last post in a series about human flight; <a target="_blank" style="color: #777;" href="../../../../2020/10/12/story-of-flight/">post 1</a>, <a target="_blank" style="color: #777;" href="../../../../2020/10/13/stepping-stones/">post 2</a>).</i></p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; text-align:center; width:80%">
-    <img alt="" src="/assets/optimizing-a-wing/wing_shape.png" onclick="toggleWingShape()" style="width:315px" id="wingShapeImage" />
-    <img alt="" src="/assets/optimizing-a-wing/wing_flow.png" onclick="toggleWingFlow()" style="width:315px" id="wingFlowImage" />
+    <img alt="" src="assets/optimizing-a-wing/wing_shape.png" onclick="toggleWingShape()" style="width:315px" id="wingShapeImage" />
+    <img alt="" src="assets/optimizing-a-wing/wing_flow.png" onclick="toggleWingFlow()" style="width:315px" id="wingFlowImage" />
 	<div class="thecap" style="text-align:left;"><b>Figure 1:</b> In this post, we'll simulate a wind tunnel, place a rectangular occlusion in it, and then use gradient descent to turn it into a wing. <p style="color:grey; display:inline;">[The images above are videos. Click to pause or play.]</p></div>
 </div>
 
@@ -153,7 +153,7 @@
 		<ul>
 		<div id="projection_info" style="display: none;"><i>This rule comes from our incompressibility assumption and the process of enforcing it is called projection. Since volume is conserved, fluid parcels can only move into positions that their neighbors have recently vacated. This puts a strong constraint on our simulation's velocity field: it needs to be volume-conserving. Fortunately, Helmholtz’s theorem tells us that any vector field can be decomposed into an incompressible field and a gradient field, as a figure from <a href="https://drive.google.com/file/d/1upKFdtnM0xcTVxNsPHI1KCvmcanAJheL/view?usp=sharing">this paper</a> shows:
 			<div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:70%">
-				<img src="/assets/optimizing-a-wing/decomposition.png" style="width:100%" />
+				<img src="assets/optimizing-a-wing/decomposition.png" style="width:100%" />
 			</div>
 		One way to make our velocity field incompressible is to find the gradient field and then subtract it from the original field as shown above. This <i>projects</i> our velocity field onto a volume-conserving manifold.</i>
 		</div>
@@ -173,23 +173,23 @@
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:19.5%; min-width:150px; display: inline-block; vertical-align: top;">
-    <img src="/assets/optimizing-a-wing/mask/mask_0.00.png" style="width:100%" />
+    <img src="assets/optimizing-a-wing/mask/mask_0.00.png" style="width:100%" />
     <div style="text-align: left;">Mask = 0.0</div>
   </div>
     <div style="width:19.5%; min-width:150px; display: inline-block; vertical-align: top;">
-    <img src="/assets/optimizing-a-wing/mask/mask_0.05.png" style="width:100%" />
+    <img src="assets/optimizing-a-wing/mask/mask_0.05.png" style="width:100%" />
     <div style="text-align: left;">Mask = 0.05</div>
   </div>
     <div style="width:19.5%; min-width:150px; display: inline-block; vertical-align: top;">
-    <img src="/assets/optimizing-a-wing/mask/mask_0.12.png" style="width:100%" />
+    <img src="assets/optimizing-a-wing/mask/mask_0.12.png" style="width:100%" />
     <div style="text-align: left;">Mask = 0.12</div>
   </div>
   <div style="width:19.5%; min-width:150px; display: inline-block; vertical-align: top;">
-    <img src="/assets/optimizing-a-wing/mask/mask_0.50.png" style="width:100%" />
+    <img src="assets/optimizing-a-wing/mask/mask_0.50.png" style="width:100%" />
     <div style="text-align: left;">Mask = 0.5</div>
   </div>
   <div style="width:19.5%; min-width:150px; display: inline-block; vertical-align: top;">
-    <img src="/assets/optimizing-a-wing/mask/mask_1.00.png" style="width:100%" />
+    <img src="assets/optimizing-a-wing/mask/mask_1.00.png" style="width:100%" />
     <div style="text-align: left;">Mask = 1.0</div>
   </div>
 </div>
@@ -222,12 +222,12 @@
 <p>So let’s review. Our goal is to simulate a wind tunnel and use it to derive a wing shape. We began by writing down the general Navier-Stokes equation and eliminating irrelevant terms: all of them but self-advection. Next, we figured out how to represent a wing shape in the tunnel using a continuously-deformable occlusion. Finally, we wrote down an equation for what a good wing should do and discussed how to optimize it. Now it is time to put everything together in about two hundred lines of code and see what happens when we run it…</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%; min-width: 300px; text-align:center;">
-	<img alt="" src="/assets/optimizing-a-wing/optimize_wing.png" />
+	<img alt="" src="assets/optimizing-a-wing/optimize_wing.png" />
 </div>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:43%; min-width: 300px; text-align:center;">
 	<p style="display:inline;"><div style="color:black;font-size: 18px">Final result</div> <div style="color:grey;">[Click image to pause or play.]</div></p>
-	<img style="width:100%" alt="" src="/assets/optimizing-a-wing/wing.png" onclick="toggleBasicWing()" id="basicWing" />
+	<img style="width:100%" alt="" src="assets/optimizing-a-wing/wing.png" onclick="toggleBasicWing()" id="basicWing" />
 </div>
 
 <p>Sure enough, we get a beautiful little wing. Of all possible shapes, this is the very best one for creating efficient lift in our wind tunnel. This wing is definitely a toy solution since our simulation is coarse and not especially accurate. However, after making a few simple improvements we would be able to design real airplane wings this way. We would just need to:</p>
@@ -243,7 +243,7 @@
 <p>Just like the real wind tunnels of the twentieth century, these simulated wind tunnels need to go through lots of debugging before we can trust them. In fact, while building this demo we discovered a number of ways that things can go wrong. Here are some of the most amusing failure cases:</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:100%">
-	<img src="/assets/optimizing-a-wing/sim_bloopers.png" style="width:100%" />
+	<img src="assets/optimizing-a-wing/sim_bloopers.png" style="width:100%" />
 </div>
 
 <p>Several of these wings are just plain dreadful. But others seem reasonable, if unexpected. The two-wing solution is particularly amusing. We did not intend for this “biplane” solution to occur, and yet it is a completely viable way of solving the objective we wrote down. One advantage to keeping the problem setup so simple is that, in doing so, we left space for these surprising behaviors to occur.</p>
@@ -253,7 +253,7 @@
 <p>There are variations on the base wing shape which excel in particular niches. Sometimes we will want a wing that is optimal at high speeds and other times we will want one that is optimal at low speeds. In order to accommodate a large fuselage, we might want an extra-thick wing. Alternatively, in order to reduce its overall weight, we might want to keep it thin. It turns out that we can change simulation parameters and add auxiliary losses to find optimal wing shapes for each of these scenarios.</p>
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:60%; min-width: 300px">
-	<img src="/assets/optimizing-a-wing/sim_manifold.png" style="width:100%" />
+	<img src="assets/optimizing-a-wing/sim_manifold.png" style="width:100%" />
 </div>
 <p>Our wind tunnel simulation is interesting first, because it illustrates how the Platonic ideal of wing design is rooted in the laws of physics. As we saw in the earlier posts, there were many cultural and technological forces that contributed to airfoil design. These forces were important for many reasons, but they were not the primary factor in the wing shapes they produced – physics was.</p>
 
@@ -261,11 +261,11 @@
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:36.4815%; min-width:200px; display: inline-block; vertical-align: top;">
-    <img src="/assets/optimizing-a-wing/bird_shapes.png" style="width:100%" />
+    <img src="assets/optimizing-a-wing/bird_shapes.png" style="width:100%" />
     <div style="text-align: left;">A figure from <a href="https://doi.org/10.2307/3677110">Lockwood (1998)</a> arranging bird species by wing pointedness and wingtip convexity. Different wing designs stem from adaptations to different ecological niches.</div>
   </div>
   <div style="width:62.073%; min-width:300px; display: inline-block; vertical-align: top;">
-    <img src="/assets/optimizing-a-wing/norberg2002.png" style="width:100%" />
+    <img src="assets/optimizing-a-wing/norberg2002.png" style="width:100%" />
     <div style="text-align:left;">A plot by <a href="https://doi.org/10.1002/jmor.10013">Lindhe (2002)</a> showing aspect ratio versus wing loading index in some birds, airplanes, a hang-glider, a butterfly, and a maple seed. Just like the families of birds, different human flying machines display substantial variation along these axes.</div>
   </div>
 </div>
@@ -274,10 +274,10 @@
 
 <div class="imgcap" style="display: block; margin-left: auto; margin-right: auto; width:99.9%">
   <div style="width:55%; min-width:250px; display: inline-block; vertical-align: top;">
-    <img src="/assets/optimizing-a-wing/bird_morph.png" style="width:100%" />
+    <img src="assets/optimizing-a-wing/bird_morph.png" style="width:100%" />
   </div>
   <div style="width:44.3%; min-width:250px; display: inline-block; vertical-align: top;">
-    <img src="/assets/optimizing-a-wing/plane_morph.png" style="width:100%" />
+    <img src="assets/optimizing-a-wing/plane_morph.png" style="width:100%" />
   </div>
 </div>
 
@@ -289,7 +289,7 @@
 
 <!-- The desire to fly is remarkable in that it is something that our biology alone cannot satisfy. In this way we are a bit like hermit crabs -- creatures who are born without the ability to grow a shell and yet need one to survive as adults. As they mature, they must cast about their tide pools for a suitable shell. And when they find one, they clean it, fit themselves to it, and their bodies grow or shrink to make the fit perfect. But whereas hermit crabs seek out shells because they want safety, humans seek out flight because they are after things like freedom, adventure, and beauty. We are not trying to achieve stasis; rather, we are aiming for a future that is different and better. That is what made us a flying species in the first place and that is what will propel us even higher tomorrow. -->
 <div class="imgcap_noborder" style="text-align:center">
-  <img src="/assets/optimizing-a-wing/hummingbird.png" style="width:15%;min-width:150px;" />
+  <img src="assets/optimizing-a-wing/hummingbird.png" style="width:15%;min-width:150px;" />
 </div>
 
 <!-- So we beat on, wings angled into the wind, borne ceaselessly into the future. -->
@@ -308,9 +308,9 @@ essay. Special thanks to my family and friends for serving as guinea pigs for ea
 
 		path = document.getElementById("wingShapeImage").src
 	    if (path.split('/').pop() == "wing_shape.png") {
-	        document.getElementById("wingShapeImage").src = "/assets/optimizing-a-wing/wing_shape.gif";
+	        document.getElementById("wingShapeImage").src = "assets/optimizing-a-wing/wing_shape.gif";
 	    } else {
-	        document.getElementById("wingShapeImage").src = "/assets/optimizing-a-wing/wing_shape.png";
+	        document.getElementById("wingShapeImage").src = "assets/optimizing-a-wing/wing_shape.png";
 	    }
 	}
 </script>
@@ -320,9 +320,9 @@ essay. Special thanks to my family and friends for serving as guinea pigs for ea
 
 		path = document.getElementById("wingFlowImage").src
 	    if (path.split('/').pop() == "wing_flow.png") {
-	        document.getElementById("wingFlowImage").src = "/assets/optimizing-a-wing/wing_flow.gif";
+	        document.getElementById("wingFlowImage").src = "assets/optimizing-a-wing/wing_flow.gif";
 	    } else {
-	        document.getElementById("wingFlowImage").src = "/assets/optimizing-a-wing/wing_flow.png";
+	        document.getElementById("wingFlowImage").src = "assets/optimizing-a-wing/wing_flow.png";
 	    }
 	}
 
@@ -330,9 +330,9 @@ function toggleBasicWing() {
 
     path = document.getElementById("basicWing").src
       if (path.split('/').pop() == "wing.png") {
-          document.getElementById("basicWing").src = "/assets/optimizing-a-wing/wing_flow.gif";
+          document.getElementById("basicWing").src = "assets/optimizing-a-wing/wing_flow.gif";
       } else {
-          document.getElementById("basicWing").src = "/assets/optimizing-a-wing/wing.png";
+          document.getElementById("basicWing").src = "assets/optimizing-a-wing/wing.png";
       }
   }
 

@@ -7,11 +7,11 @@
     <title>A Bird's Eye View of Synthetic Gradients</title>
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="A blog by Monowar Bhuyan">
-    <link rel="canonical" href="https://binbhutto.github.io/blog/2016/11/26/synthetic-gradients/">
+    <link rel="canonical" href="https://binbhutto.github.io/2016/11/26/synthetic-gradients/">
     <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Cyber Analytics and Learning posts" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/blog/assets/main.css">
+    <link rel="stylesheet" href="assets/main.css">
 
     <!-- Google Analytics -->
     <script>
@@ -40,17 +40,17 @@
   <div class="wrap">
 
     <div style="float:left; margin-top:11px; margin-right:10px;">
-    <img src="/assets/oak.png" width="50px">
+    <img src="assets/oak.png" width="50px">
     </div>
 
     <div style="float:left; margin-top:4px; margin-right:10px;">
-      <a class="site-title" style="padding-top:0px; padding-bottom:0px;" href="/blog/ ">Cyber Analytics and Learning</a>
+      <a class="site-title" style="padding-top:0px; padding-bottom:0px;" href="/ ">Cyber Analytics and Learning</a>
       <!--<p style="font-size:14px;">‎‎ㅤㅤㅤ&zwnj;</p> This is very hacky but I couldn't find a better way -->
       <br>
       <p style="padding-bottom:6px; font-size:15px;font-weight: 300;">A blog by Monowar Bhuyan</p>
     </div>
 
-<!--     <a class="site-title" style="padding-top:8px; font-size:28px" href="/blog/ ">Cyber Analytics and Learning</a> -->
+<!--     <a class="site-title" style="padding-top:8px; font-size:28px" href="/ ">Cyber Analytics and Learning</a> -->
     
     <nav class="site-nav">
       <a href="#" class="menu-icon">
@@ -66,9 +66,9 @@
       </a>
 
       <div class="trigger" style="margin-bottom:0px; padding-top:10px; font-size:13px;font-weight: 300;">
-<!--         <a class="page-link" href="/blog/ ">Home</a> -->
+<!--         <a class="page-link" href="/ ">Home</a> -->
 <!--         
-          <a class="page-link" href="/blog/assets/2017-12-23-neurips17/">A Review of NeurIPS</a>
+          <a class="page-link" href="/assets/2017-12-23-neurips17/">A Review of NeurIPS</a>
         
           
         
@@ -99,11 +99,11 @@
 
   <article class="post-content">
   <!-- <center>
-	<img src="/assets/synthetic-gradients/intro.png" width="20%">
+	<img src="assets/synthetic-gradients/intro.png" width="20%">
 </center> -->
 
 <div class="imgcap_noborder">
-	<img src="/assets/synthetic-gradients/synthgrad.gif" width="30%" />
+	<img src="assets/synthetic-gradients/synthgrad.gif" width="30%" />
 	<div class="thecap" style="text-align:center">Synthetic gradients in action (from the DeepMind <a href="https://deepmind.com/blog/decoupled-neural-networks-using-synthetic-gradients/">blog post)</a></div>
 </div>
 
@@ -133,7 +133,7 @@
 <p>In supervised learning, the objective is to make the <b>feedforward</b> function approximate the true mapping from the input data \(x_i\) to the target label \(y_i\). The input \(x_i\) could be the pixels of an image and \(y_i\) could be a label for that image. Or, \(x_i\) could be a sentence in French and \(y_i\) could be a sentence in English. The mapping could really be <a href="http://www.sciencedirect.com/science/article/pii/0893608089900208">any function</a>! The <b>loss</b> measures how well the neural network learns to approximate this mapping.</p>
 
 <div class="imgcap">
-    <img src="/assets/synthetic-gradients/mapping.jpg" width="50%" />
+    <img src="assets/synthetic-gradients/mapping.jpg" width="50%" />
     <div class="thecap" style="text-align:center">Deep learning as a type of regression (images from 2015 <a href="https://arxiv.org/abs/1409.0575">ImageNet paper</a>)</div>
 </div>
 
@@ -148,7 +148,7 @@
 <p><strong>Autodifferentiation.</strong> If we break the feedforward function of a neural network into its component functions, we can represent it as a directed graph where each junction is an operation and data flows along the vertices. The graph of a two-layer neural network with sigmoid activations might look like this:</p>
 
 <div class="imgcap_noborder">
-    <img src="/assets/synthetic-gradients/forward.svg" width="90%" />
+    <img src="assets/synthetic-gradients/forward.svg" width="90%" />
     <div class="thecap" style="text-align:center">Forward pass</div>
 </div>
 
@@ -159,14 +159,14 @@
 <p>During backprop, we recursively apply the chain rule to the feedforward function. Each recursive step moves the gradient backwards through one of the functions in the graph above. This means we can represent backprop using the same sort of graph:</p>
 
 <div class="imgcap_noborder">
-    <img src="/assets/synthetic-gradients/backward.svg" width="90%" />
+    <img src="assets/synthetic-gradients/backward.svg" width="90%" />
     <div class="thecap" style="text-align:center">Backward pass</div>
 </div>
 
 <p>See how we can map each node in the forward pass to a node in the backward pass. In other words, if we know the forward pass, we can automatically compute the backward pass. This is called <i>autodifferentiation</i> and all modern deep learning libraries (Theano, TensorFlow, Torch, etc.) can do it. The user simply builds a computational graph of the forward pass and the software handles the backwards pass. Pretty slick!</p>
 
 <div class="imgcap_noborder">
-    <img src="/assets/synthetic-gradients/full-pass.svg" width="90%" />
+    <img src="assets/synthetic-gradients/full-pass.svg" width="90%" />
     <div class="thecap" style="text-align:center">Full pass with mapping between forward and backward passes</div>
 </div>
 
@@ -195,7 +195,7 @@
 <h2 id="lets-prove-it">Let’s prove it!</h2>
 
 <div class="imgcap">
-	<img src="/assets/synthetic-gradients/mnist.svg" width="55%" />
+	<img src="assets/synthetic-gradients/mnist.svg" width="55%" />
 	<div class="thecap" style="text-align:center">MNIST training samples</div>
 </div>
 
@@ -241,7 +241,7 @@
 <p><strong>Stale gradients.</strong> Let’s compare our ‘unlocked’ MNIST model to one trained with backprop using <b>stale gradients</b>. To train with stale gradients, compute the gradient with backprop once every ten steps and otherwise use it to perform a parameter update. Since we use the same gradient for multiple parameter updates, we call it ‘stale.’ Using stale gradients is a good way to compare synthetic gradients to regular gradients because both perform backprop at the same rate (just once every ten training steps).</p>
 
 <div class="imgcap_noborder">
-	<img src="/assets/synthetic-gradients/stale_vs_synth.png" width="60%" />
+	<img src="assets/synthetic-gradients/stale_vs_synth.png" width="60%" />
 	<div class="thecap" style="text-align:center">Stale vs. synthetic gradients. Final accuracies were 90.0% and 89.9% respectively</div>
 </div>
 
@@ -250,9 +250,9 @@
 <p><strong>Visualizing the difference.</strong> A more qualitative way to compare synthetic and actual gradients is to stop the training loop at a random time step and plot heatmaps of the two, side by side.</p>
 
 <div class="imgcap_noborder">
-	<img src="/assets/synthetic-gradients/visualize1.png" width="100%" />
-	<img src="/assets/synthetic-gradients/visualize2.png" width="100%" />
-	<img src="/assets/synthetic-gradients/visualize3.png" width="100%" />
+	<img src="assets/synthetic-gradients/visualize1.png" width="100%" />
+	<img src="assets/synthetic-gradients/visualize2.png" width="100%" />
+	<img src="assets/synthetic-gradients/visualize3.png" width="100%" />
 	<div class="thecap" style="text-align:center">Visualizing gradients at the second layer of a 2-layer MNIST classifier.</div>
 </div>
 
@@ -265,7 +265,7 @@
 <p>The DeepMind paper was mysteriously quiet about runtime. Why? Because it’s <i>horrific!</i> For my toy model, normal backprop is 100-1000x faster. Why? Well, let’s count parameters.</p>
 
 <div class="imgcap_noborder">
-    <img src="/assets/synthetic-gradients/param-count.svg" width="100%" />
+    <img src="assets/synthetic-gradients/param-count.svg" width="100%" />
 </div>
 
 <p>Consider two adjacent, fully connected layers \(l_I\) and \(l_J\) with \(m\) and \(n\) hidden units respectively. Now construct a simple linear regression model that maps the activation \(h_J\) to \(\nabla \theta_J\) (the approximate gradient of all parameters in \(l_J\)). The dimensionality of the input is \(n\) and that of the target is \((m+1) \times n\). Our simple linear model will have a total of \(n^2(m+1)(n+1) \approx O(mn^3)\) parameters. This means that synthetic gradient model will be larger and more expensive to train than the original model by a factor of \(O(n^2)\). <u>Strong con</u>!</p>
@@ -281,7 +281,7 @@
 <p>Imagine you’re a researcher tossing around the idea of synthetic gradients. How could you tell whether it’s a crazy idea that will waste your time or a useful idea that will make a difference? It’s a tricky question…a little like the infamous puppy vs. bagel meme.</p>
 
 <div class="imgcap">
-	<img src="/assets/synthetic-gradients/puppy_or_bagel.jpg" width="50%" />
+	<img src="assets/synthetic-gradients/puppy_or_bagel.jpg" width="50%" />
 	<div class="thecap" style="text-align:center">Puppy or bagel?</div>
 </div>
 

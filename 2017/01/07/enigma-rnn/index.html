@@ -7,11 +7,11 @@
     <title>Learning the Enigma with Recurrent Neural Networks</title>
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="A blog by Monowar Bhuyan">
-    <link rel="canonical" href="https://binbhutto.github.io/blog/2017/01/07/enigma-rnn/">
+    <link rel="canonical" href="https://binbhutto.github.io/2017/01/07/enigma-rnn/">
     <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Cyber Analytics and Learning posts" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/blog/assets/main.css">
+    <link rel="stylesheet" href="assets/main.css">
 
     <!-- Google Analytics -->
     <script>
@@ -40,17 +40,17 @@
   <div class="wrap">
 
     <div style="float:left; margin-top:11px; margin-right:10px;">
-    <img src="/assets/oak.png" width="50px">
+    <img src="assets/oak.png" width="50px">
     </div>
 
     <div style="float:left; margin-top:4px; margin-right:10px;">
-      <a class="site-title" style="padding-top:0px; padding-bottom:0px;" href="/blog/ ">Cyber Analytics and Learning</a>
+      <a class="site-title" style="padding-top:0px; padding-bottom:0px;" href="/ ">Cyber Analytics and Learning</a>
       <!--<p style="font-size:14px;">‎‎ㅤㅤㅤ&zwnj;</p> This is very hacky but I couldn't find a better way -->
       <br>
       <p style="padding-bottom:6px; font-size:15px;font-weight: 300;">A blog by Monowar Bhuyan</p>
     </div>
 
-<!--     <a class="site-title" style="padding-top:8px; font-size:28px" href="/blog/ ">Cyber Analytics and Learning</a> -->
+<!--     <a class="site-title" style="padding-top:8px; font-size:28px" href="/ ">Cyber Analytics and Learning</a> -->
     
     <nav class="site-nav">
       <a href="#" class="menu-icon">
@@ -66,9 +66,9 @@
       </a>
 
       <div class="trigger" style="margin-bottom:0px; padding-top:10px; font-size:13px;font-weight: 300;">
-<!--         <a class="page-link" href="/blog/ ">Home</a> -->
+<!--         <a class="page-link" href="/ ">Home</a> -->
 <!--         
-          <a class="page-link" href="/blog/assets/2017-12-23-neurips17/">A Review of NeurIPS</a>
+          <a class="page-link" href="/assets/2017-12-23-neurips17/">A Review of NeurIPS</a>
         
           
         
@@ -99,7 +99,7 @@
 
   <article class="post-content">
   <div class="imgcap_noborder">
-    <img src="/assets/enigma-rnn/enigma-machine.jpg" width="30%" />
+    <img src="assets/enigma-rnn/enigma-machine.jpg" width="30%" />
     <div class="thecap" style="text-align:center">An ~Enigma~ machine, famed for its inner complexity.</div>
 </div>
 
@@ -119,7 +119,7 @@
 <p><strong>By hand.</strong> Long ago, cryptanalysis was done by hand. People would count the frequencies of symbols, compare encrypted text to decrypted text, and try to find patterns. It was a meticulous process which required days and weeks of concentration. Starting with World War II, the heavy lifting was transferred to machines and humans experts started spending their time on problems in pure mathematics which enabled them to crack all but the toughest ciphers. But even today, cryptanalysts spend much of their time meticulously dissecting the structure of the cipher they’re trying to crack. Does this need to be the case?</p>
 
 <div class="imgcap_noborder">
-    <img src="/assets/enigma-rnn/frequency.png" style="width:60%;min-width: 300px" />
+    <img src="assets/enigma-rnn/frequency.png" style="width:60%;min-width: 300px" />
     <div class="thecap" style="text-align:center">The frequency table is a classic codebreaking tool</div>
 </div>
 
@@ -139,7 +139,7 @@
 <p><strong>Framing the problem.</strong> Let’s consider the general problem of decryption where there is a 1:1 mapping between the plaintext and ciphertext. If you think of the plaintext as English and the ciphertext as a strange foriegn language, the training objective resembles that of machine translation. Given a string of letters in English - let’s use “You know nothing Jon Snow” as an example - we should learn to scramble them according to the rules of the cipher.</p>
 
 <div class="imgcap_noborder">
-    <img src="/assets/enigma-rnn/objective.png" style="width:60%;min-width: 300px" />
+    <img src="assets/enigma-rnn/objective.png" style="width:60%;min-width: 300px" />
     <div class="thecap" style="text-align:center">Basic training objective where "BCHLN" is the key</div>
 </div>
 
@@ -148,14 +148,14 @@
 <p><strong>Solve something simpler.</strong> Before tackling a really tough problem like the Enigma, it’s a good idea to solve something simpler. One of my favorite ciphers is the Vigenere cipher, which shifts the plaintext according to the letters in a keyword (see gif below). For a more in-depth description, check out the <a href="https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher">Vigenere</a> Wikipedia page.</p>
 
 <div class="imgcap_noborder">
-    <img src="/assets/enigma-rnn/vigenere.gif" width="60%" />
+    <img src="assets/enigma-rnn/vigenere.gif" width="60%" />
     <div class="thecap" style="text-align:center">Using the Vigenere cipher to encrypt plaintext "CALCUL" with keyword "MATHS" (repeated).</div>
 </div>
 
 <p><strong>Results.</strong> The Vigenere cipher was easy. A mere 100,000 steps of gradient descent produced a model which learned the decryption function with 99% accuracy.</p>
 
 <div class="imgcap_noborder">
-    <img src="/assets/enigma-rnn/vigenere-rnn.png" width="90%" />
+    <img src="assets/enigma-rnn/vigenere-rnn.png" width="90%" />
     <div class="thecap" style="text-align:center">A sample output from the model I trained on the Vigenere cipher.</div>
 </div>
 
@@ -166,7 +166,7 @@
 <p><strong>The Enigma.</strong> Now we’re ready for something a lot more complex: the Nazi Enigma. Its innards consisted of three rotating alphabet wheels, several switchboards, and ten cables. All told, the machine had <a href="http://www.cryptomuseum.com/crypto/enigma/working.htm">150,738,274,900,000 possible configurations</a>!</p>
 
 <div class="imgcap_noborder">
-    <img src="/assets/enigma-rnn/enigma.gif" width="100%" />
+    <img src="assets/enigma-rnn/enigma.gif" width="100%" />
     <div class="thecap" style="text-align:center">How the Enigma works. Note that the three wheels can rotate as the decoding process unfolds</div>
 </div>
 
@@ -175,7 +175,7 @@
 <p>We’ll train the model on only one permutation of switchboards, cables, and wheels. The keyword, then, is three letters which tell the model the initial positions of the wheels.</p>
 
 <div class="imgcap_noborder">
-    <img src="/assets/enigma-rnn/enigma-objective.png" style="width:50%;min-width: 300px" />
+    <img src="assets/enigma-rnn/enigma-objective.png" style="width:50%;min-width: 300px" />
     <div class="thecap" style="text-align:center">Basic training objective where "EKW" is the keyword. The keyword defines the initial positions of the three alphabet wheels</div>
 </div>
 
@@ -184,7 +184,7 @@
 <p>The model needed to be very large to capture all the Enigma’s transformations. I had success with a single-celled LSTM model with 3000 hidden units. Training involved about a million steps of batched gradient descent: after a few days on a k40 GPU, I was getting 96-97% accuracy!</p>
 
 <div class="imgcap_noborder">
-    <img src="/assets/enigma-rnn/enigma-rnn.png" style="width:80%;min-width: 300px" />
+    <img src="assets/enigma-rnn/enigma-rnn.png" style="width:80%;min-width: 300px" />
     <div class="thecap" style="text-align:center">A sample output from the model I trained on the Enigma cipher.</div>
 </div>
 
@@ -195,7 +195,7 @@
 <p>Learning the Enigma is interesting, but these days it has no practical use. Modern encryption uses public-key factoring algorithms such as <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a>. RSA is a different beast from the Enigma, but in theory we could also learn it with deep learning. In practice, this is difficult because RSA uses modulus and multiplication of large integers. These operations are difficult to approximate with RNNs. We need further algorithmic advances in deep learning like the <a href="https://arxiv.org/abs/1511.08228">Neural GPU</a> or the <a href="https://deepmind.com/blog/differentiable-neural-computers/">Differential Neural Computer</a> to make this problem even sort of feasible (and even then, this will be even close to the most efficient approach).</p>
 
 <div class="imgcap_noborder">
-    <img src="/assets/enigma-rnn/rsa.gif" style="width:50%;min-width: 300px" />
+    <img src="assets/enigma-rnn/rsa.gif" style="width:50%;min-width: 300px" />
     <div class="thecap" style="text-align:center">Public-key encryption. In theory, we could learn the RSA with deep learning but it presents many practical difficulties</div>
 </div>
 
@@ -206,7 +206,7 @@
 <p><strong>AI.</strong> In the past several years, Deep Reinforcement Learning has enabled an impressive series of breakthroughs in the field of Artificial Intelligence (AI). Many believe that these breakthroughs will enable machines to perform complex tasks such as <a href="https://waymo.com/">driving cars</a>, <a href="http://www.maluuba.com/">understanding text</a>, and even <a href="https://deepmind.com/blog/differentiable-neural-computers/">reasoning over memory</a>. This project suggests that AIs built from neural networks could also become effective code breakers.</p>
 
 <div class="imgcap">
-    <img src="/assets/enigma-rnn/bombe.jpg" style="width:70%;min-width: 300px" />
+    <img src="assets/enigma-rnn/bombe.jpg" style="width:70%;min-width: 300px" />
     <div class="thecap" style="text-align:center">The original Enigma cracker (a Bombe machine). <a href="http://www.cryptomuseum.com/crypto/bombe/">Crypto Museum</a></div>
 </div>
 

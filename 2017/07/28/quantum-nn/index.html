@@ -7,11 +7,11 @@
     <title>Taming Wave Functions with Neural Networks</title>
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="A blog by Monowar Bhuyan">
-    <link rel="canonical" href="https://binbhutto.github.io/blog/2017/07/28/quantum-nn/">
+    <link rel="canonical" href="https://binbhutto.github.io/2017/07/28/quantum-nn/">
     <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Cyber Analytics and Learning posts" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/blog/assets/main.css">
+    <link rel="stylesheet" href="assets/main.css">
 
     <!-- Google Analytics -->
     <script>
@@ -40,17 +40,17 @@
   <div class="wrap">
 
     <div style="float:left; margin-top:11px; margin-right:10px;">
-    <img src="/assets/oak.png" width="50px">
+    <img src="assets/oak.png" width="50px">
     </div>
 
     <div style="float:left; margin-top:4px; margin-right:10px;">
-      <a class="site-title" style="padding-top:0px; padding-bottom:0px;" href="/blog/ ">Cyber Analytics and Learning</a>
+      <a class="site-title" style="padding-top:0px; padding-bottom:0px;" href="/ ">Cyber Analytics and Learning</a>
       <!--<p style="font-size:14px;">‎‎ㅤㅤㅤ&zwnj;</p> This is very hacky but I couldn't find a better way -->
       <br>
       <p style="padding-bottom:6px; font-size:15px;font-weight: 300;">A blog by Monowar Bhuyan</p>
     </div>
 
-<!--     <a class="site-title" style="padding-top:8px; font-size:28px" href="/blog/ ">Cyber Analytics and Learning</a> -->
+<!--     <a class="site-title" style="padding-top:8px; font-size:28px" href="/ ">Cyber Analytics and Learning</a> -->
     
     <nav class="site-nav">
       <a href="#" class="menu-icon">
@@ -66,9 +66,9 @@
       </a>
 
       <div class="trigger" style="margin-bottom:0px; padding-top:10px; font-size:13px;font-weight: 300;">
-<!--         <a class="page-link" href="/blog/ ">Home</a> -->
+<!--         <a class="page-link" href="/ ">Home</a> -->
 <!--         
-          <a class="page-link" href="/blog/assets/2017-12-23-neurips17/">A Review of NeurIPS</a>
+          <a class="page-link" href="/assets/2017-12-23-neurips17/">A Review of NeurIPS</a>
         
           
         
@@ -101,7 +101,7 @@
   <p><em>NOTE: This is a repost from <a href="https://quantumfrontiers.com/2017/08/02/taming-wave-functions-with-neural-networks/">an article I wrote for <strong>Quantum Frontiers</strong></a>, the blog of the Institute for Quantum Information and Matter at Caltech</em></p>
 
 <div class="imgcap">
-    <img src="/assets/quantum-nn/wavf-ski.jpg" width="45%" />
+    <img src="assets/quantum-nn/wavf-ski.jpg" width="45%" />
 </div>
 
 <p>The wave function is essential to most calculations in quantum mechanics, and yet it’s a difficult beast to tame. Can neural networks help?</p>
@@ -121,15 +121,15 @@
 <p>Though \(\psi\)  grows exponentially with the number of particles in a system, most physical wave functions can be described with a lot less information. Two algorithms for doing this are the Density Matrix Renormalization Group (DMRG) and Quantum Monte Carlo (QMC).</p>
 
 <div class="imgcap">
-    <img src="/assets/quantum-nn/bonsai.png" width="40%" />
+    <img src="assets/quantum-nn/bonsai.png" width="40%" />
 </div>
 
 <p><strong>Density Matrix Renormalization Group (DMRG).</strong> Imagine we want to learn about trees, but studying a full-grown, 50-foot tall tree in the lab is too unwieldy. One idea is to keep the tree small, like a bonsai tree. DMRG is an algorithm which, like a bonsai gardener, prunes the wave function while preserving its most important components. It produces a compressed version of the wave function called a Matrix Product State (MPS). One issue with DMRG is that it doesn’t extend particularly well to 2D and 3D systems.</p>
 
 <div class="imgcap">
-    <img src="/assets/quantum-nn/leaf.jpg" width="20%" />
-    <img src="/assets/quantum-nn/acorn.jpg" width="20%" />
-    <img src="/assets/quantum-nn/bark.jpg" width="20%" />
+    <img src="assets/quantum-nn/leaf.jpg" width="20%" />
+    <img src="assets/quantum-nn/acorn.jpg" width="20%" />
+    <img src="assets/quantum-nn/bark.jpg" width="20%" />
 </div>
 
 <p><strong>Quantum Monte Carlo (QMC).</strong> Another way to study the concept of “tree” in a lab (bear with me on this metaphor) would be to study a bunch of leaf, seed, and bark samples. Quantum Monte Carlo algorithms do this with wave functions, taking “samples” of a wave function (pure states) and using the properties and frequencies of these samples to build a picture of the wave function as a whole. The difficulty with QMC is that it treats the wave function as a black box. We might ask, “how does flipping the spin of the third electron affect the total energy?” and QMC wouldn’t have much of a physical answer.</p>
@@ -137,7 +137,7 @@
 <h2 id="brains-gg-brawn">Brains \(\gg\) Brawn</h2>
 
 <div class="imgcap_noborder">
-    <img src="/assets/quantum-nn/nqs.jpg" width="50%" />
+    <img src="assets/quantum-nn/nqs.jpg" width="50%" />
     <div class="thecap" style="text-align:left">A schema of the Neural Quantum State (NQS) model introduced By Carleo and Troyer. The model has a Restricted Boltzman Machine (RBM) architecture. Increasing <em>M</em>, the number of units in the hidden layer, increases accuracy.</div>
 </div>
 
@@ -146,7 +146,7 @@
 <p>A recent <a href="http://science.sciencemag.org/content/355/6325/602.full">Science paper</a> by Carleo and Troyer (2017) used the same technique to make QMC “smarter” and effectively compress wave functions with neural networks. This approach, called “Neural Quantum States (NQS)”, produced several state-of-the-art results.</p>
 
 <div class="imgcap_noborder">
-    <img src="/assets/quantum-nn/mps-learn-schema.png" width="100%" />
+    <img src="assets/quantum-nn/mps-learn-schema.png" width="100%" />
     <div class="thecap" style="text-align:left;">A schema of the neural network model I used to obtain MPS coefficients. The Hamiltonian I'm using is a Heisenberg Hamiltonain plus extra coupling terms (see <a href="https://github.com/greydanus/psi0nn/blob/master/static/greydanus-dartmouth-thesis.pdf">my thesis</a> for details). Colors denote the magnitudes of scalar matrix elements.</div>
 </div>
 
@@ -164,9 +164,9 @@
 <p>Success! My model solved for ground states with arbitrary precision. Even more interestingly, I used it to automatically obtain MPS coefficients. Shown below, for example, is a visualization of my model’s coefficients for the <a href="https://en.wikipedia.org/wiki/Greenberger%E2%80%93Horne%E2%80%93Zeilinger_state">GHZ state</a>, compared with coefficients <a href="http://www2.mpq.mpg.de/Theorygroup/CIRAC/wiki/images/9/9f/Eckholt_Diplom.pdf">taken from the literature</a>.</p>
 
 <div class="imgcap_noborder">
-    <img src="/assets/quantum-nn/ghz-literature.png" width="46%" />
-    <img src="/assets/quantum-nn/ghz-mps-learn.png" width="46%" />
-    <img src="/assets/quantum-nn/ghz-colorscale.png" width="7%" />
+    <img src="assets/quantum-nn/ghz-literature.png" width="46%" />
+    <img src="assets/quantum-nn/ghz-mps-learn.png" width="46%" />
+    <img src="assets/quantum-nn/ghz-colorscale.png" width="7%" />
     <div class="thecap" style="text-align:left;">A visual comparison of a 4-site Matrix Product State for the GHZ state <b>a)</b> listed in the literature <b>b)</b> obtained from my neural network model.</div>
 </div>
 
@@ -175,7 +175,7 @@
 <h2 id="looking-beyond-fundamental-research">Looking beyond fundamental research</h2>
 
 <div class="imgcap_noborder">
-    <img src="/assets/quantum-nn/qcomputer.jpg" width="40%" />
+    <img src="assets/quantum-nn/qcomputer.jpg" width="40%" />
     <div class="thecap" style="text-align:center">A quantum computer developed by Joint Quantum Institute, U. Maryland.</div>
 </div>
 

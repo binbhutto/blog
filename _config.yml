@@ -1,0 +1,24 @@
+# Site settings
+title: Cyber Analytics and Learning
+# email: 
+description: "A blog by Monowar Bhuyan"
+baseurl: "/blog"
+url: ""
+# twitter_username: samgreydanus
+# github_username: greydanus
+plugins:
+  - jekyll-feed
+  - jekyll-paginate
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+paginate: 10
+paginate_path: "/page:num/"
+
+highlighter: rouge
+kramdown:
+  input: GFM
+  auto_ids: true
+  syntax_highlighter: rouge
